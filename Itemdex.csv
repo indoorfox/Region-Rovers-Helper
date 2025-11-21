@@ -1,0 +1,97 @@
+Held Item,Price,Effect
+Ability Shield,3500 Poké,The holder's ability or abilities cannot be changed
+Air Balloon,1600 Poké,Holder is immune to Ground type moves until damaged by an attack
+Alpha Signet,3500 Poké,The holder increases its size class to the next highest size and gains a +1 bonus to 1 stat of its choice.
+Amulet Coin,"10,000 Poké",Allows the trainer to gain 1.5x money from trainer battles if the holder participates in battle
+Absorb Bulb,950 Poké,"When hit by Water type move, increase Special Attack by 2 stages"
+Adrenaline Orb,3500 Poké,"When Attack or Special Attack is lowered, increase Speed by 2 stages"
+Assault Vest,3500 Poké,"Special Defense and Defense modifier is increased by 3, cannot use moves that don't deal damage"
+Bag of Holding,1500 Poké,"When the holder takes a Downtime, it stores up to 5 unused PP of one of its moves in the bag, and on the next day, it gains additional PP into the same move equal to the PP stored in this item, exceeding max PP for the move"
+Big Berry Pouch,3500 Poké,This is the only item the holder can have. The user can activate this item to activate the effects of any three berries of its choice.
+Big Root,3500 Poké,Moves that restore HP to the user can automatically have up to 2 damage rolls maximized
+Binding Band,3500 Poké,"Binding moves deal an additional die of damage each turn, and keep a target bound for an extra 3 turns"
+Black Sludge,1500 Poké,"Restores 3d10 HP to Poison types at the end of each of their turns - deals damage instead to non-Poison types, and a roll of 4 or lower is considered a 5"
+Blunder Policy,3500 Poké,"When holder misses an attack, next attack gains advantage and gains 2 additional dice of damage"
+Boomerang,3500 Poké,"When the holder uses a ranged move, it becomes a line instead (ex. a 30ft move becomes a 30ft line)"
+Bottled Chemicals,2550 Poké,"When the holder afflicts a target with the Poisoned condition, it can choose to instead afflict them with the Badly Poisoned condition"
+Bottomless Bowl,3500 Poké,"The holder can hold an additional consumable item while it is holding this item. When the holder uses a consumable item, this item is destroyed until the end of battle, and the consumable item is replenished."
+Cell Battery,950 Poké,"When hit by Electric type move, increase Attack by 2 stages"
+Choice Band,3500 Poké,"Holder's Physical moves gain an additional 3 damage dice, can only use the first move used until switched out"
+Choice Specs,3500 Poké,"Holder's Special moves gain an additional 3 damage dice, can only use the first move used until switched out"
+Choice Scarf,3500 Poké,"Increases the holder's Speed modifier by 3, and its movement speeds by 15ft, can only use the first move used until switched out"
+Colossus Charm,2550 Poké,The holder can reduce its modifier to hit by 1/4 in order to increase the damage dice of its attack by two dice.
+Conscience Crown,3500 Poké,"Area of effect moves used by the holder will deal half damage to allies, after type effectiveness and critical hit bonuses"
+Covert Cloak,3500 Poké,Holder is immune to additional or secondary effects of moves
+Destiny Knot,1900 Poké,"If holder becomes infatuated, Pokémon that caused infatuated becomes infatuated as well"
+Eerie Music Box,3500 Poké,"When the holder is hit by a move, roll a 1d10. On a 10, the attacker is afflicted with a three turn perish counter as though the move Perish Song was used on it."
+Electrofloater,"9,550 Poké",The holder gains a hovering speed equal to its highest movement speed
+Elemental Cloth,"12,500 Poké","The holder gains a resistance to a certain type of moves depending on the type of the cloth it is holding. If it already resists the type, it becomes a 2x resistance, and if it already has a 2x resistance to the type, it becomes a 4x resistance"
+Elemental Plate,"12,500 Poké","When the holder uses a move of the respective type plate, it gains 1 additional die of damage, and when these moves are not very effective on a target, the target takes 25% reduced damage instead of 50% reduced damage"
+Elemental Gem,750 Poké,"Grants holder an additional +10 damage to its next move of the type of gem held, and a target is unable to resist the attack"
+Everstone,800 Poké,Stops Pokémon from evolving while held
+Eversweet Honey,3500 Poké,"Restores 3d10 HP to Bug types at the end of each of their turns - deals damage instead to non-Bug types, and a roll of 4 or lower is considered a 5"
+Eviolite,3500 Poké,"Holder increases Defense and Special Defense modifier by +3 if it can still evolve, and when an attack deals damage to it, one damage roll is guaranteed to be a 1"
+Eject Button,3500 Poké,Holder automatically swaps out or moves 60ft without provoking opportunity attacks if it takes damage and doesn't faint - the Pokémon that swaps in automatically can take a turn
+Eject Pack,3500 Poké,Holder automatically swaps out or moves 60ft without provoking opportunity attacks if any of its stats are lowered - the Pokémon that swaps in automatically can take a turn
+Expert Belt,2000 Poké,Holder's super effective hits gain 1 additional damage die and deal 2.5x damage instead of 2.0x damage
+Fate Thread,3500 Poké,"When the holder is in battle with another allied Pokémon that is holding a Fate Thread, whenever either Pokémon is attacked and damaged by a move, it deals half damage, but both Pokémon take the reduced damage"
+Fancy Sneakers,"9,550 Poké",The holder gains a walking speed equal to its highest movement speed
+Flame Orb,1000 Poké,"At the end of a Pokémon's turn, afflicts the holder with a burn"
+Float Stone,1000 Poké,Reduces holder's weight to the next lowest weight class and doubles their movement speeds
+Focus Band,2550 Poké,"If the holder would be knocked out, roll a d20. On a 16 or higher, Pokémon stays up with 1 HP."
+Focus Sash,3500 Poké,"If holder would be knocked out, this item is used up, and the holder cannot be knocked out until the end of its next turn - its moves during this time deal an additional die of damage"
+Four-Leaf Clover,2550 Poké,"When the holder is hit by a critical hit, it deals 1.5x damage instead of 2x damage"
+Glass Shield,2550 Poké,"Increases the holder's Defense and Sp. Defense modifiers by +5. If the user is hit by an attack by a Pokémon within 15ft of it, the shield is consumed and deals damage to the target equal to half of the damage it deals to the holder"
+Half-Full Glass,3500 Poké,"While the holder is above half of its maximum HP, it's moves cannot be resisted. While the holder is below half of its maximum HP, its moves are never able to become super effective."
+Half-Empty Glass,3500 Poké,"While the holder is above half of its maximum HP, it's moves cannot become super effective. While the holder is below half of its maximum HP, its moves cannot be resisted."
+Hand Drill,"9,550 Poké",The holder gains a burrowing speed equal to its highest movement speed
+Heavy-Duty Boots,3500 Poké,"Holder is immune to hazards and terrain effects, and it is unaffected by difficult terrain"
+Hopping Charm,1000 Poké,"Whenever the holder moves 30ft, it charges this charm, and when the charm is fully charged, the holder can move an additional 15ft on its turn, and the charge resets"
+Iron Ball,2550 Poké,"Increases holder's weight to the next highest weight class, and it cannot be forcibly moved by moves"
+King's Rock,3500 Poké,"On a hit using a damaging move, roll a d10. On a 10, target Flinches"
+Lagging Tail,2550 Poké,"Holder moves at the end of each round regardless of speed, but its moves ignore resistances"
+Leftovers,3500 Poké,"At the end of each turn, holder restores 2d12 HP, and a roll of a 5 or lower on a die is considered a 6."
+Life Orb,3500 Poké,"Attacks gain 2 additional damage dice or 3 when the user's moves are not very effective on the target, but holder takes damage equal to the extra damage dealt"
+Light Clay,2550 Poké,"When holder activates a Light Screen or Reflect, it stays active for 8 turns instead of 5"
+Lucky Paw Charm,2550 Poké,"Whenever the holder lands a critical hit, roll a 1d20. On an 18-20, double the damage of the critical hit a second time."
+Makeshift Wings,"9,550 Poké",The holder gains a flying speed equal to its highest movement speed
+Mental Herb,2550 Poké,"If Pokémon becomes unable to use certain moves, such as via Taunt, it is cured and becomes immune to these effects until the end of its next turn"
+Mimikyu Hood,3500 Poké,"The first time the holder takes damage in combat, the damage is reduced to 0"
+Mirror Herb,2550 Poké,"If a foe gets a stat increase, holder gets the same stat increase and doubles it if possible"
+Muscle Band,3500 Poké,"When the holder uses a physical move and rolls for damage, it cannot roll below half of the maximum roll (if the move deals 1d12 damage, the minimum roll is a 6)"
+Mystical Hat,2550 Poké,"Allows the holder to pass through other Pokémon and trainer's spaces, and it can treat any of its movement speeds as phasing movement while moving"
+Protective Pads,3500 Poké,Holder ignores contact damage and its Defense and Sp. Defense modifiers increase by 1
+Possessive Ribbon,3500 Poké,"Whenever the holder enters combat, select a single other target in battle. The holder's moves have advantage on that target, and the holder is unaffected by difficult terrain when it is moving toward its target."
+Power Herb,2550 Poké,"If the holder uses a move that requires it to charge, it instead uses this item to use the move instantly"
+Purifying Necklace,3500 Poké,"At the end of the holder's turns, it rolls a d10. On a 8-10, the holder is cured of any status condition it has, which includes volatile and non-volatile status conditions"
+Quick Claw,3500 Poké,"At the start of each round, roll a d20. On 16-20, holder can take its turn at any point in the round, and its movement speeds increase by 10ft for the round"
+Razor Claw,3500 Poké,"Holder's critical hit range increases by 2, and its critical hits deal an additional die of damage"
+Razor Fang,3500 Poké,"On a hit using a physical move, roll a d10. On a 10, target Flinches, and it takes 2d8 damage when it flinches as a result of this item"
+Red Card,3500 Poké,"When a Pokémon hits the holder, it is forced to switch out if it has a Pokéball or move 60ft away if it is Befriended, provoking opportunity attacks"
+Rocky Helmet,3500 Poké,"When holder is hit by a physical move that makes contact, the attacker takes 2d12 damage, and a roll of 5 or lower on a die is considered a 6."
+Room Service,3500 Poké,"If Trick Room is used, the user always goes first while Trick Room is active, regardless of speed"
+Safety Goggles,3500 Poké,"Holder is immune to weather affects and powder moves, and when a weather condition is active, it ignores the negative effects (such as a sandstorm's damage)"
+Scuba Flippers,"9,550 Poké",The holder gains a swimming speed equal to its highest movement speed
+Shell Bell,3500 Poké,"On hitting a foe with a damaging move, holder restores 2d10 HP, and a roll of 4 or lower on a die is considered a 5. It restores additional HP equal to the highest damage roll of the move used"
+Scope Lens,3500 Poké,"Increases holder's critical hit range by 2, and its critical hits cannot be canceled out by any means"
+Screen Polish,3500 Poké,"Doubles the turn length that Light Screen, Reflect, and Aurora Veil stay active, but only reduces damage by 40% instead of 50%, and they cannot be broken by moves or abilities"
+Shed Shell,1050 Poké,"Holder can switch out regardless of effects or abilities, and switching out a Pokémon holding this item does not cost its trainer an action"
+Sigil of Sanctum,3500 Poké,"As a bonus action, the holder can place down a sigil within 15ft of itself. While on the sigil, the holder's moves deal an additional die of damage and reach an additional 10ft. Only two sigils can be active at once."
+Smackback Glove,2550 Poké,"When the holder uses a move that would cause a target to be forcibly moved, the distance they move is doubled. When the holder is hit by a move that would cause it to be forcibly moved, the distance it is moved is halved"
+Slingshot,3500 Poké,"The holder's moves with a range of Melee become a range of 15ft, and the holder's moves cannot make contact while it is holding this item"
+Smoke Ball,1050 Poké,"Holder doesn't provoke attacks of opportunity, and moves used against it have a -2 penalty to hit"
+Spectral Scarf,"9,550 Poké",The holder gains a phasing speed equal to its highest movement speed
+Subwoofer,3500 Poké,The holder's sound based moves can deal damage to an additional target the user can see equal to a quarter of the damage dealt to the original target
+Subzero Snowcone,3500 Poké,"Restores 3d10 HP to Ice types at the end of each of their turns - deals damage instead to non-Ice types, and a roll of 4 or lower is considered a 5"
+Sync Bracelet,2550 Poké,"When the holder is in battle with another allied Pokémon that is holding a Sync Bracelet, they each gain a +1 bonus to their Attack, Defense, Sp. Attack, Sp. Defense, and Speed modifiers, and their moves deal an additional die of damage"
+Terrain Extender,900 Poké,"When holder activates a terrain, it stays active for 8 turns instead of 5"
+Terrain Seeds,1050 Poké,"Holder gains a +2 stages to Defense and Special Defense when terrain is active, and it becomes able to benefit from the positive effects of terrain while ignoring the negative effects (such as being able to inflict status conditions on foes in Misty Terrain)"
+Throat Spray,2550 Poké,"Holder increases Special Attack by 2 stages after using a sound based move, and its sound based moves gain an additional +2 modifier to hit and +6 modifier to damage"
+Toxic Orb,1000 Poké,"At the end of a Pokémon's turn, afflicts the holder with bad poisoning"
+Vengeful Bangle,2550 Poké,"The first time the holder takes damage in a battle, the attacker takes the same amount of damage dealt to the holder"
+Voodoo Doll,3500 Poké,"Whenever the holder deals damage to a target with a Special move, roll a d10. On a 10, the target becomes Cursed"
+Weather Rocks,1050 Poké,"When holder summons a weather, it stays active for 8 turns instead of 5, depending on the item"
+Weakness Policy,3500 Poké,"When the holder takes super effective damage, it increases its Attack and Sp. Attack by 2 stages"
+White Herb,2550 Poké,"Removes all status decreasing effects on the user, and it becomes immune to its stats being lowered until the end of its next turn"
+Wise Glasses,3500 Poké,"When the holder uses a Special move and rolls for damage, it cannot roll below half of the maximum roll (if the move deals 1d12 damage, the minimum roll is a 6)"
+Zoom Lens,3500 Poké,"Holder's attack rolls gain +3 modifier if they move after the target, and when they hit, one of the damage rolls of damaging attacks is guaranteed to be the maximum possible result"

@@ -1,0 +1,307 @@
+Stench,"When the Pokémon hits with a move, roll a d10. On a 10, the target Flinches."
+Drizzle,"The Pokémon summons rainy weather when entering battle. Once per Downtime, it may manually summon rainy weather using an action."
+Speed Boost,The Pokémon's Speed is boosted by 1 stage at the end of each round.
+Battle Armor,"When a foe scores a critical hit, this Pokémon is immune to extra damage dealt by critical hits."
+Sturdy,"Once per Downtime, when the Pokémon falls to or below 0 HP, it can instead choose to fall to 1 HP."
+Damp,"The Pokémon dampens its surroundings, preventing all Pokémon from using explosive moves such as Self-Destruct. Additionally, Fire type moves against this Pokémon reduce their damage by 1 damage die."
+Limber,The Pokémon's limber body prevents it from being paralyzed.
+Sand Veil,All attacks made against this Pokémon have a -5 penalty to hit while in a sandstorm.
+Static,"The Pokémon is charged with static electricity. Upon being hit by a move that makes contact, roll a d10. On a 8-10, the attacker is paralyzed."
+Volt Absorb,"If hit by an Electric-type move, the Pokémon restores 2dX HP instead of taking damage, where X is dependent on the Pokémon's HP class."
+Water Absorb,"If hit by a Water-type move, the Pokémon restores 2dX HP instead of taking damage, where X is dependent on the Pokémon's HP class."
+Oblivious,"The Pokémon is oblivious, keeping it from being infatuated, falling for taunts, or being affected by Intimidate."
+Cloud Nine,The effects of weather are nullified as long as this Pokémon is on field.
+Compound Eyes,"The Pokémon cannot be blinded, it has a +5 modifier to skill checks using sight."
+Insomnia,"The Pokémon's insomnia prevents it from falling unwillingly asleep, and moves that need it to be asleep fail."
+Color Change,"When the Pokémon is hit by a move, its typing changes to the type of move it was damaged by."
+Immunity,"The Pokémon's immune system prevents it from being poisoned, and it's resistant to Poison damage regardless of typing."
+Flash Fire,"If hit by a Fire-type move, this Pokémon absorbs the flames, and its Fire-type moves gain an additional damage die for 1 minute."
+Shield Dust,"Protective dust shields the Pokémon from the additional effects of moves, and other powder moves are nullified."
+Own Tempo,"The Pokémon sticks to its own tempo, preventing it from becoming confused, being affected by Intimidate, or frightened."
+Suction Cups,The Pokémon uses suction cups to stay in one spot. This protects it from moves and items that would force it to switch out.
+Intimidate,"When the Pokémon enters a battle, it intimidates opposing Pokémon and makes them cower, lowering the Attack of all foes by 1 stage, and they must make a Composure check vs. this Pokémon's Intimidate check. On a failed check, foes are Frightened and must move away from this Pokémon as far as they can and can't willingly move toward it, having to repeat the check at the end of each turn to no longer be frightened."
+Shadow Tag,The Pokémon steps on the opposing Pokémon's shadows to prevent them from switching out or moving outside of a 30 foot radius of the Pokémon.
+Rough Skin,"The Pokémon's rough skin damages attackers that make direct contact with it, dealing 2dX damage to the attacker, where X is dependent on the attacker's HP class."
+Wonder Guard,Its mysterious power only lets super effective moves hit the Pokémon.
+Levitate,"By floating in the air, the Pokémon receives full immunity to all Ground-type moves, and it has a hovering speed equal to its walking speed."
+Effect Spore,"When a foe makes contact with the Pokémon, roll a d10. On a 9-10, roll a d4. On a 1, the foe is poisoned, put to sleep on a 2, paralyzed on a 3, and the dice is rerolled on a 4."
+Synchronize,"If the Pokémon is burned, frostbitten, paralyzed, or poisoned by another Pokémon, that Pokémon will be inflicted with the same status condition."
+Clear Body,Prevents other Pokémon's moves or abilities from lowering the Pokémon's stats.
+Natural Cure,The Pokémon's status conditions are cured when it switches out.
+Lightning Rod,"The Pokémon draws in all Electric-type moves used within a 20ft radius of itself. Instead of taking damage from them, its Sp. Atk stat is boosted by 1 stage."
+Serene Grace,The range of activating additional effects of moves increases by 1 (ex. The move Bite can cause a Flinch on a 9 or 10 instead of only a 10).
+Swift Swim,Doubles the Pokémon's Speed stat and movement speeds in rain.
+Chlorophyll,Doubles the Pokémon's Speed stat and movement speeds in harsh sunlight.
+Illuminate,"Raises the likelihood of meeting wild Pokémon while roaming, can illuminate dark areas, and all Pokémon within 15ft of this Pokémon have a -1 penalty to their ACs."
+Trace,"When it enters a battle, the Pokémon copies an opposing Pokémon's Ability of its choice."
+Huge Power,Doubles the Pokémon's damage modifier when it uses a move that uses its Attack stat.
+Poison Point,"When a foe makes contact with the Pokémon, roll a d10. On an 8-9, the attacker is poisoned, and on a 10, it is badly poisoned."
+Inner Focus,"The Pokémon's intense focus prevents it from flinching or being affected by Intimidate, and its moves have a +2 bonus to hit."
+Magma Armor,The Pokémon's hot magma coating prevents it from being frostbitten or having its movement speed lowered.
+Water Veil,The Pokémon's water veil prevents it from being burned or having its Attack reduced.
+Magnet Pull,Prevents Steel-type Pokémon from fleeing or moving outside of a 30 foot radius of the Pokémon by pulling them in with magnetism.
+Soundproof,Soundproofing gives the Pokémon full immunity to all sound-based moves.
+Rain Dish,"The Pokémon regains 2dX HP at the end of each turn while in rain, where X is dependent on the Pokémon's HP class."
+Sand Stream,"The Pokémon summons a sandstorm when it enters a battle. Once per Downtime, it may manually summon a sandstorm using an action."
+Pressure,"Puts other Pokémon under pressure, and any time another Pokémon uses a move, its PP usage is doubled, and other Pokémon have a -2 penalty to attack rolls made against this Pokémon."
+Thick Fat,"The Pokémon is protected by a layer of thick fat, which halves the damage taken from Fire- and Ice-type moves, and it can't be burned or frostbitten."
+Early Bird,"The Pokémon awakens from sleep after one turn when forcibly put to sleep. Whenever the Pokémon wakes up from being asleep, it can instantly move 30ft in any direction."
+Flame Body,"When a foe makes contact with the Pokémon, roll a d10. On an 8-10, the attacker is burned. All of the Pokémon's effects that have a chance to burn have their range increased by 1 (ex. a 10 on a d10 to burn becomes a 9-10 on a d10 to burn)."
+Run Away,"The Pokémon cannot be targeted by attacks of opportunity, and moves, abilities and difficult terrain cannot hinder its movement."
+Keen Eye,"The Pokémon's keen eyes prevent its accuracy from being lowered, and it has advantage on all sight based checks."
+Hyper Cutter,"The Pokémon's prized, mighty pincers prevent other Pokémon from lowering its Attack stat, and its slicing moves ignore resistances and immunities to always hit neutrally."
+Pickup,"For each hour spent traveling with the Pokémon in the field, roll a d100. The Pokémon may pick up an item depending on the result of the roll."
+Truant,"Each time the Pokémon uses a move, it skips its next turn."
+Hustle,Boosts the Pokémon's damage of moves by +10 but all moves are -5 to attack rolls.
+Cute Charm,"When a foe makes contact with the Pokémon, roll a d10. On an 8-10, the attacker is infatuated and immediately has its Attack and Sp. Attack reduced by 1 stage each."
+Plus,Boosts all of the Pokémon's stat modifiers by +2 if an ally with the Plus or Minus Ability is also in battle.
+Minus,Boosts all of the Pokémon's stat modifiers by +2 if an ally with the Plus or Minus Ability is also in battle.
+Forecast,"The Pokémon transforms with the weather to change its type to Water, Fire, or Ice."
+Sticky Hold,"The Pokémon's held items cling to its sticky body and cannot be removed by other Pokémon, and it cannot be forcibly moved from where it is on the field."
+Shed Skin,"If the Pokémon is afflicted with a status condition, roll a d6 at the end of each of its turns. On a 5 or 6, it is cured of the status condition, and it cannot be afflicted by status conditions for 2 turns."
+Guts,"It's so gutsy that having a status condition boosts the damage of all the Pokémon's Physical moves by an additional damage die, and it ignores the effects of Burn on its attack stat."
+Marvel Scale,The Pokémon's marvelous scales boost its Defense modifier by +3 if it has a status condition.
+Liquid Ooze,The strong stench of the Pokémon's oozed liquid damages attackers for the same amount of HP that using HP-draining moves would heal instead of healing them.
+Overgrow,Gains an additional damage die for Grass-type moves when the Pokémon's HP is below 1/3 of its max.
+Blaze,Gains an additional damage die forFire-type moves when the Pokémon's HP is below 1/3 of its max.
+Torrent,Gains an additional damage die for Water-type moves when the Pokémon's HP is below 1/3 of its max.
+Swarm,Gains an additional damage die for Bug-type moves when the Pokémon's HP is below 1/3 of its max.
+Rock Head,The Pokémon isn't damaged by its own moves or by recoil.
+Drought,"Turns the sunlight harsh when the Pokémon enters a battle. Once per Downtime, it may manually summon harsh sunlight using an action."
+Arena Trap,The Pokémon traps all foes in the battlefield to prevent them from switching out or moving outside of a 30 foot radius of the Pokémon.
+Vital Spirit,"The Pokémon is full of vitality, and that prevents it and its allies from being forcibly put to sleep. Any time the Pokémon would be put to sleep, it gains +1 stage to a random stat."
+White Smoke,The Pokémon produces a white smoke in a 15 foot radius around itself. Those in the smoke are protected from others lowering their stats while in the smoke.
+Pure Power,Doubles the Pokémon's damage modifier when it uses a move that uses Special Attack.
+Shell Armor,"When a foe scores a critical hit, this Pokémon is immune to extra damage dealt by critical hits."
+Air Lock,Eliminates the effects of weather while in battle.
+Tangled Feet,"If the Pokémon is confused, it doubles its movement speeds and attack rolls made against it are -5 to hit."
+Motor Drive,"If hit by an Electric-type move, this Pokémon absorbs the sparks, and it increases its movement speeds by 10 feet and its Speed stat by 1 stage."
+Rivalry,"The Pokémon's competitive spirit makes it deal an additional die of damage to Pokémon of the same gender, but 1 less die of damage to Pokémon of the opposite gender."
+Steadfast,"The Pokémon's determination boosts its Speed by 1 stage every time it flinches. Whenever the Pokémon flinches, if an attack causes it, the Pokémon can deal half of the damage dealt to it back to the attacker."
+Snow Cloak,Attacks made against the Pokémon have a -5 penalty to hit while in snow.
+Gluttony,"If the Pokémon has a berry held, it can eat it as a reaction upon receiving a status condition or taking damage. If the Pokémon would be knocked to or below 0 HP, it can consume a healing berry to prevent that, being dealt the excess damage after healing."
+Anger Point,"The Pokémon is angered when it takes a critical hit, and that maxes its Attack to +6 stages."
+Unburden,"Boosts the Speed by 1 stage if the Pokémon's held item is used or lost, or if it throws or uses an item."
+Heatproof,"The Pokémon's heatproof body halves damage taken from Fire-type moves, and it is unable to be burned."
+Simple,Doubles the effects of the Pokémon's stat changes.
+Dry Skin,"Restores 2dX HP in rain or when it is hit by Water-type moves. Takes 2dX damage in harsh sunlight, and doubles the damage received from Fire-type moves, where X in both cases is dependent on the Pokémon's HP class."
+Download,The Pokémon compares an opposing Pokémon's Defense and Sp. Def stats before raising its own Attack or Sp. Atk by 1 stage — whichever will be more effective.
+Iron Fist,Punching moves deal an additional die of damage and ignore half of the target's damage reduction.
+Poison Heal,"If poisoned, the Pokémon restores 2dX HP at the end of each turn instead of taking damage, where X is dependent on the Pokémon's HP class."
+Adaptability,Moves that are the same type as the Pokémon deal an additional die of damage.
+Skill Link,Maximizes the number of times multistrike moves hit.
+Hydration,"Cures the Pokémon's status conditions at the end of its turn in rain, and it cannot have its movement speeds reduced in rain."
+Solar Power,"In harsh sunlight, the Pokémon's Special Attacks deal an additional die of damage, but takes 2d12 damage (minimum of 12) at the end of each of its turns."
+Quick Feet,Increases the Pokémon's movement speeds by 10 feet and raises its Speed modifier by +2 if the Pokémon has a status condition.
+Normalize,"All the Pokémon's moves become Normal type. The damage of Normal type moves increases by two damage dice, and they can hit Ghost type Pokémon."
+Sniper,"If the Pokémon's attack lands a critical hit, the damage is tripled instead of doubled."
+Magic Guard,The Pokémon only takes damage from attacks.
+No Guard,"The Pokémon employs no-guard tactics to ensure its moves always hit, but so do foe's moves."
+Stall,"The Pokémon is always the last in initiative order, regardless of its Speed, but it takes half damage from all moves."
+Technician,"Moves that deal less than 2d12 damage are powered up to deal 2d12 damage - multihit moves are powered up to the next damage die (1d6 to 1d8, etc)."
+Leaf Guard,Prevents status conditions in harsh sunlight or while in Grassy Terrain.
+Klutz,"The Pokémon can't use or be forced to hold any held items, and all moves used against the Pokémon have a -3 penalty to hit."
+Mold Breaker,The Pokémon's moves ignore any abilities the target has.
+Super Luck,The Pokémon is so lucky that the critical hit range is increased by 2.
+Aftermath,Deals 4dX damage depending on the Pokémon's HP class to an attacker if it knocks out the Pokémon with a move that makes direct contact.
+Anticipation,"Upon the Pokémon entering combat, you become aware of all super effective moves the foes have against your Pokémon."
+Forewarn,"When it enters a battle, the Pokémon can tell one of the moves an opposing Pokémon has and prevent them from using it for the next 3 turns."
+Unaware,"When attacking, the Pokémon ignores the target's stat changes."
+Tinted Lens,"The Pokémon can use ""not very effective"" moves to deal neutral damage."
+Filter,Reduces the damage of super effective attacks by 25%.
+Slow Start,"For five turns, the Pokémon's Attack and Speed stats are halved."
+Scrappy,The Pokémon can hit Ghost-type Pokémon with Normal- and Fighting-type moves. It is also unaffected by Intimidate.
+Storm Drain,"The Pokémon draws in all Water-type moves, rendering them useless. Instead of taking damage from them, its Sp. Atk is increased by 1 stage."
+Ice Body,"The Pokémon gradually regains 2dX HP, where X is dependent on the Pokémon's HP class, at the end of each turn in snow."
+Solid Rock,Reduces the damage of super effective attacks by 25%.
+Snow Warning,"The Pokémon makes it snow when it enters a battle. Once per Downtime, it may manually summon a snowstorm using an action."
+Honey Gather,"For each hour traveled with the Pokémon out, roll a 1d100. On a 96-100, the Pokémon acquires some honey. This range increases by 5 every 5 levels, maxing out at a chance for 51-100. While the Pokémon is holding honey, it gains a +1 bonus to all of its stat modifiers."
+Frisk,"When it enters a battle, the Pokémon can check all opposing Pokémon's held items."
+Reckless,Moves that deal recoil damage gain an additional damage die.
+Multitype,Changes the Pokémon's type to match the plate it holds.
+Flower Gift,Boosts the Attack and Sp. Defense modifiers of the Pokémon and its allies by +1 in harsh sunlight.
+Bad Dreams,"Opposing Pokémon that are asleep take 2dX damage at the end of each of their turns, where X is dependent on the sleeping Pokémon's HP class."
+Pickpocket,"When a foe makes contact with the Pokémon, it makes a Sleight of Hand check. If it succeeds, the DC determined by the GM, it steals one of the items a foe has in its possession."
+Sheer Force,"Removes any additional effects from the Pokémon's moves, but increases the moves' damage by an additional damage die."
+Contrary,Reverses any stat changes affecting the Pokémon so that attempts to boost its stats instead lower them — and attempts to lower its stats will boost them.
+Unnerve,Unnerves opposing Pokémon and makes them unable to eat Berries or use healing items.
+Defiant,"If the Pokémon has any stat lowered by an opposing Pokémon, its Attack stat will be boosted by 2 stages."
+Defeatist,"Halves the Pokémon's Attack and Sp. Atk stats when its HP drops to half or less. While above half of its max HP or more, it gains a +1 bonus to all of its stat modifiers."
+Cursed Body,"When damaged by a move, roll a d10. On a 8-10, the attacker's move is disabled."
+Healer,"At the end of each turn, roll a d10. On a 8-10, the Pokémon can remove a status condition from a target of its choice within 15 feet of it. Whenever it removes a status condition, it restores 2dX HP to itself and the healed target, where X is dependent on each Pokémon's HP class."
+Friend Guard,Reduces damage dealt to all allies by a damage die.
+Weak Armor,"The Pokémon's Defense is lowered by 1 stage when it takes damage from physical moves, but its Speed increases by 2 stages and its movement speeds increase by 5 feet."
+Heavy Metal,Doubles the Pokémon's weight and prevents it from being forcibly moved by any means.
+Light Metal,Halves the Pokémon's weight and increases its movement speeds by 10ft each.
+Multiscale,Reduces the amount of damage the Pokémon takes while its HP is full by half.
+Toxic Boost,"Physical moves gain an additional damage die when the Pokémon is poisoned, and it takes half damage from poison."
+Flare Boost,"Special moves gain an additional damage die when the Pokémon is burned, and it takes half damage from burn."
+Harvest,"Upon eating or using a berry, roll a d20. On an even number, the Pokémon regains the berry: this can be rolled again at the start of each of the Pokémon's turns."
+Telepathy,"The Pokémon ignores the damage and effects of moves from its allies, and its own moves cannot damage or affect their allies."
+Moody,"Every turn, one of the Pokémon's stats will be boosted by 2 stages but another stat will be lowered by 1 stage."
+Overcoat,The Pokémon takes no damage from sandstorms or terrain. It is also protected from the effects of powders and spores.
+Poison Touch,"When making contact with an attack against a foe, roll a d10. On a 8-10, the target is poisoned."
+Regenerator,"When the Pokémon is withdrawn from battle, it restores 3dX HP, where X is dependent on the Pokémon's HP class."
+Big Pecks,"Prevents the Pokémon from having its Defense stat lowered, and its Flying type moves deal an additional die of damage."
+Sand Rush,Doubles the Pokémon's Speed stat and movement speeds in a sandstorm.
+Wonder Skin,Status moves used against this Pokémon have -5 to hit.
+Analytic,Pokémon's moves deal an additional die of damage if it acts after the target of its move.
+Illusion,"The Pokémon fools opponents by entering battle disguised as the last Pokémon in its Trainer's party. When its Illusion is broken, it can immediately use an attacking move on the target who broke it, the attack having advantage."
+Imposter,The Pokémon transforms itself into the Pokémon it's facing as if using the move Transform.
+Infiltrator,"The Pokémon's moves are unaffected by the target's barriers, substitutes, and the like."
+Mummy,"Contact with the Pokémon changes the attacker's Ability to Mummy. When a Pokémon is given the Mummy ability, aside from the Pokémon who originally had it, it instantly takes 2dX damage, where X is dependent on the Pokémon's HP class."
+Moxie,"When the Pokémon knocks out a target, it shows moxie, which boosts its Attack by 1 stage."
+Justified,"When the Pokémon is hit by a Dark-type attack, its Attack is boosted by 1 stage due to its sense of justice."
+Rattled,"The Pokémon gets scared when hit by a Dark, Ghost, or Bug-type attack or if intimidated, which boosts its Speed by 1 stage and increases its movement speeds by 10ft."
+Magic Bounce,The Pokémon reflects status moves instead of getting hit by them.
+Sap Sipper,"The Pokémon takes no damage when hit by Grass-type moves. Instead, its Attack is boosted by 1 stage."
+Prankster,Gives priority to the Pokémon's status moves.
+Sand Force,"Rock-, Ground-, and Steel-type moves gain an additional damage die in a sandstorm."
+Iron Barbs,"The Pokémon's iron barbs deal 2dX damage to the attacker if it makes direct contact, where X is dependent on the attacker's HP class."
+Zen Mode,Changes the Pokémon's shape when its HP drops to half or less.
+Victory Star,The Pokémon and its allies' attack rolls have +5 to hit.
+Turboblaze,The Pokémon's moves are unimpeded by the Ability of the target.
+Teravolt,The Pokémon's moves are unimpeded by the Ability of the target.
+Aroma Veil,"Protects the Pokémon and its allies from effects that prevent the use of moves, such as Taunt or Torment, and infatuation."
+Flower Veil,"Ally Grass-type Pokémon are protected from status conditions, the lowering of their stats, and gain an additional die of damage to all Grass type moves."
+Cheek Pouch,"The Pokémon restores 2dX HP, where X is dependent on the Pokémon's HP class, when it eats any Berry, in addition to the Berry's usual effect."
+Protean,Changes the Pokémon's type to the type of the move it's about to use. This works only once each time the Pokémon enters battle.
+Fur Coat,Halves the damage from physical moves and prevents the Pokémon from being frostbitten.
+Magician,"When the Pokémon hits a foe with a move, make a Sleight of Hand check. On a successful check, DC determined by the GM, this Pokémon steals an item the target has."
+Bulletproof,Protects the Pokémon from ‘ball' and ‘bomb' moves.
+Competitive,Boosts the Pokémon's Special Attack by 2 stages when its stats are lowered by an opposing Pokémon.
+Strong Jaw,The Pokémon's strong jaw gives an additional die of damage to biting moves.
+Refrigerate,Normal-type moves become Ice-type moves. The power of those moves deal an additional die of damage
+Sweet Veil,"Prevents the Pokémon and its allies from falling asleep or being frightened, and its Fairy type moves deal an additional die of damage."
+Stance Change,The Pokémon changes its form to Blade Forme when it uses an attack move and changes to Shield Forme when it uses King's Shield.
+Gale Wings,Gives priority to the Pokémon's Flying-type moves while its HP is full.
+Mega Launcher,Aura and pulse moves gain an additional damage die and double their range.
+Grass Pelt,Boosts the Pokémon's Defense modifier by +2 on Grassy Terrain.
+Symbiosis,The Pokémon passes an item it has to an ally that has used up an item and gives itself a copy of the item passed.
+Tough Claws,Moves that make direct contact gain an additional damage die.
+Pixilate,Normal-type moves become Fairy-type moves. The damage of those moves is increased by a damage die.
+Gooey,Contact with the Pokémon lowers the attacker's Speed by 1 stage.
+Aerilate,Normal-type moves become Flying-type moves. The damage of those moves is increased by a damage die.
+Parental Bond,"The parent and child attack one after the other, making two attacks when using an attacking move: the second attack deals half damage."
+Dark Aura,ALL Dark-type moves gain an additional damage die.
+Fairy Aura,ALL Fairy-type moves gain an additional damage die.
+Aura Break,"The effects of ""Aura"" Abilities are reversed to lower the power of affected moves."
+Primordial Sea,"The Pokémon changes the weather to nullify Fire-type attacks, along with the effects of rain, and other weathers cannot be activated unless by Desolate Land or Delta Stream."
+Desolate Land,"The Pokémon changes the weather to nullify Water-type attacks, along with the effects of harsh sunlight, and other weathers cannot be activated unless by Primordial Sea or Delta Stream."
+Delta Stream,"The Pokémon changes the weather so that no moves are super effective against the Flying type, and other weathers cannot be activated unless by Primordial Sea or Desolate Land."
+Stamina,Boosts the Defense by 1 stage when the Pokémon is hit by any attack.
+Wimp Out,The Pokémon cowardly switches out or moves 60 feet away when its HP drops to half or less.
+Emergency Exit,"The Pokémon, sensing danger, switches out or moves 60 feet away without provoking opportunity attacks when its HP drops to half or less."
+Water Compaction,Boosts the Defense by 2 stages when the Pokémon is hit by a Water-type move.
+Merciless,The Pokémon's attacks become critical hits if the target is poisoned.
+Shields Down,"When its HP drops to half or less, the Pokémon's shell breaks and it becomes aggressive. With shields up, the Pokémon is immune to status conditions along with moves that would change its ability."
+Stakeout,Doubles the damage dealt with the next move against a target that has just switched into battle or moved within 15ft of the Pokémon on its last turn.
+Water Bubble,"Halves the power of Fire-type moves that hit the Pokémon and prevents it from being burned., and increases the damage of the Pokémon's Water type moves by a damage die."
+Steelworker,Steel-type moves gain an additional damage die.
+Berserk,Boosts the Pokémon's Special Attack by 2 stages when it takes a hit that causes its HP to drop to half or less.
+Slush Rush,Doubles the Pokémon's Speed stat and movement speeds in snow.
+Long Reach,"The Pokémon uses its moves without making contact with the target, and its melee moves gain an additional 5ft of range and ignore immunities."
+Liquid Voice,"Sound-based moves become Water-type moves, deal an additional die of damage, and any sound based move can be changed to deal damage in a 25ft radius centered on the user instead of its normal range."
+Triage,"Gives priority to the Pokémon's healing moves, and they restore an additional amount of HP equal to double the Pokémon's Sp. Defense modifier."
+Galvanize,Normal-type moves become Electric-type moves. The damage of those moves is increased by a damage die.
+Surge Surfer,Doubles the Pokémon's Speed stat and movement speeds in Electric Terrain.
+Schooling,"When it has a lot of HP, the Pokémon forms a powerful school. It stops schooling when its HP is low."
+Disguise,"Once per battle, the shroud that covers the Pokémon can protect it from an attack which deals no damage on hit."
+Battle Bond,"When the Pokémon knocks out a target, its bond with those closest to it awakens, and it changes form, gaining a +1 bonus to all of its stat modifiers and an additional +1 bonus to a stat modifier of its choice."
+Power Construct,"Cells gather to aid the Pokémon when its HP drops to half or less, causing it to change into its Complete Forme."
+Corrosion,"The Pokémon can poison the target even if it's a Steel or Poison type, and Steel type Pokémon are not immune to its Poison type moves."
+Comatose,The Pokémon is always considered asleep and will never wake up. It can attack and act as normal while in its sleeping state.
+Queenly Majesty,The Pokémon's majesty pressures opponents and makes them unable to use priority moves against the Pokémon or its allies.
+Innards Out,"When the Pokémon is knocked out, it damages its attacker by the amount equal to the HP it had left before it was KO'd."
+Dancer,"Whenever a dance move is used in battle, the Pokémon will copy the user to immediately perform that dance move itself."
+Battery,Ally Pokémon's Special moves gain an additional damage die.
+Fluffy,"Halves the damage taken from moves that make direct contact, but doubles that of Fire-type moves."
+Dazzling,"The Pokémon dazzles its opponents, making them unable to use priority moves against the Pokémon or its allies."
+Soul-Heart,Boosts the Pokémon's Special Attack by 1 stage every time another Pokémon faints.
+Tangling Hair,Contact with the Pokémon lowers the attacker's Speed by 1 stage.
+Receiver,The Pokémon copies the Ability of a defeated ally.
+Power of Alchemy,The Pokémon copies the Ability of a defeated ally.
+Beast Boost,Boosts the Pokémon's most proficient stat by 1 stage every time it knocks out a target.
+RKS System,Changes the Pokémon's type to match the memory disc it holds.
+Electric Surge,Turns the ground into Electric Terrain when the Pokémon enters a battle.
+Psychic Surge,Turns the ground into Psychic Terrain when the Pokémon enters a battle.
+Misty Surge,Turns the ground into Misty Terrain when the Pokémon enters a battle.
+Grassy Surge,Turns the ground into Grassy Terrain when the Pokémon enters a battle.
+Full Metal Body,Prevents other Pokémon's moves or Abilities from lowering the Pokémon's stats.
+Shadow Shield,Halves the amount of damage the Pokémon takes while its HP is full.
+Prism Armor,Super effective attacks that hit the Pokémon deal 1 less die of damage.
+Neuroforce,Pokémon's super effective attacks gain an additional damage die.
+Intrepid Sword,Boosts the Pokémon's Attack stat by 1 stage the first time the Pokémon enters a battle.
+Dauntless Shield,Boosts the Pokémon's Defense stat by 1 stage the first time the Pokémon enters a battle.
+Libero,Changes the Pokémon's type to the type of the move it's about to use.
+Ball Fetch,"If the Pokémon is not holding an item, it can use its reaction to fetch the Pokéball from the first failed throw of the battle."
+Cotton Down,"When the Pokémon is hit by an attack, it scatters cotton fluff around and lowers the Speed of all Pokémon within a 15ft radius except itself by 1 stage."
+Propeller Tail,Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves.
+Mirror Armor,Bounces back only the stat-lowering effects that the Pokémon receives.
+Gulp Missile,"When the Pokémon uses Surf or Dive, it will come back with prey. When it takes damage, it will spit out the prey to attack, dealing 1d10 damage or 1d12 Electric damage and paralyzing the foe."
+Stalwart,Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves.
+Steam Engine,Boosts the Speed to 6 stages when the Pokémon is hit by a Fire- or Water-type move.
+Punk Rock,Sound-based moves deal an additional die of damage. The Pokémon also takes 1 less die of damage from these kinds of moves.
+Sand Spit,The Pokémon creates a sandstorm when it's hit by an attack.
+Ice Scales,"The Pokémon is protected by ice scales, which reduces the damage taken from Special moves by 1 die."
+Ripen,Ripens Berries and doubles their numerical effects.
+Ice Face,"The Pokémon's ice head can take a physical attack as a substitute, but the attack also changes the Pokémon's appearance. The ice will be restored when it snows."
+Power Spot,Just being next to the Pokémon grants an additional damage die to all damaging moves.
+Mimicry,Changes the Pokémon's type depending on the terrain.
+Screen Cleaner,"When the Pokémon enters a battle, the effects of Light Screen, Reflect, and Aurora Veil are nullified for opposing Pokémon."
+Steely Spirit,The Steel-type moves of the Pokémon and its allies deal an additional die of damage.
+Perish Body,"When hit by a move that makes direct contact, the Pokémon and the attacker will faint after three turns unless they switch out of battle."
+Wandering Spirit,The Pokémon exchanges Abilities with a Pokémon that hits it with a move that makes direct contact.
+Gorilla Tactics,Boosts the Pokémon's Attack modifier by +4 but only allows the use of the first selected move.
+Neutralizing Gas,"While the Pokémon is in the battle, the effects of all other Pokémon's Abilities will be nullified or will not be triggered."
+Pastel Veil,Prevents the Pokémon and its allies from being poisoned.
+Hunger Switch,"The Pokémon changes its form, alternating between its Full Belly Mode and Hangry Mode after the end of every turn."
+Quick Draw,"At the start of each round, roll a d10. On an 8-10, the Pokémon acts at the start of the round regardless of turn order."
+Unseen Fist,"If the Pokémon uses moves that make direct contact, it can attack the target even if the target protects itself."
+Curious Medicine,"When the Pokémon enters a battle, it scatters medicine from its shell, which removes all stat changes from allies."
+Transistor,Electric-type moves gain an additional damage die.
+Dragon's Maw,Dragon-type moves gain an additional damage die.
+Chilling Neigh,"When the Pokémon knocks out a target, it utters a chilling neigh, which boosts its Attack by 1 stage."
+Grim Neigh,"When the Pokémon knocks out a target, it utters a terrifying neigh, which boosts its Sp. Atk by 1 stage."
+As One,This Ability combines the effects of both Calyrex's Unnerve Ability and Glastrier's Chilling Neigh Ability.
+As One,This Ability combines the effects of both Calyrex's Unnerve Ability and Spectrier's Grim Neigh Ability.
+Lingering Aroma,Contact with the Pokémon changes the attacker's Ability to Lingering Aroma.
+Seed Sower,Turns the ground into Grassy Terrain when the Pokémon is hit by an attack.
+Thermal Exchange,Boosts the Attack by 1 stage when the Pokémon is hit by a Fire-type move. The Pokémon also cannot be burned.
+Anger Shell,"When an attack causes its HP to drop to half or less, the Pokémon gets angry. This lowers its Defense and Sp. Defense by 1 stage but boosts its Attack, Sp. Atk, and Speed stat by 1 stage."
+Purifying Salt,The Pokémon's pure salt protects it from status conditions and halves the damage taken from Ghost-type moves.
+Well-Baked Body,"The Pokémon takes no damage when hit by Fire-type moves. Instead, its Defense is boosted by 2 stages."
+Wind Rider,Boosts the Pokémon's Attack by 1 stage if Tailwind takes effect or if the Pokémon is hit by a wind move. The Pokémon also takes no damage from wind moves.
+Guard Dog,Boosts the Pokémon's Attack by 1 stage if intimidated. Moves and items that would force the Pokémon to switch out also fail to work.
+Rocky Payload,Rock-type moves gain an additional damage die.
+Wind Power,"The Pokémon becomes charged when it is hit by a wind move, boosting the power of the next Electric-type move the Pokémon uses by an additional damage die."
+Zero to Hero,The Pokémon transforms into its Hero Form when it switches out.
+Commander,"When the Pokémon enters a battle, it goes inside the mouth of an ally Dondozo if one is on the field. The Pokémon then issues commands from there, unable to be targeted while inside the Dondozo's mouth."
+Electromorphosis,"The Pokémon becomes charged when it takes damage, boosting the power of the next Electric-type move the Pokémon uses with an additional damage die."
+Protosynthesis,Boosts the Pokémon's most proficient stat modifier by +2 in harsh sunlight or if the Pokémon is holding Booster Energy.
+Quark Drive,Boosts the Pokémon's most proficient stat modifier by +2 on Electric Terrain or if the Pokémon is holding Booster Energy.
+Good as Gold,"A body of pure, solid gold gives the Pokémon full immunity to other Pokémon's status moves."
+Vessel of Ruin,The power of the Pokémon's ruinous vessel halves the Sp. Atk stats of all Pokémon except itself.
+Sword of Ruin,The power of the Pokémon's ruinous sword halves the Defense stats of all Pokémon except itself.
+Tablets of Ruin,The power of the Pokémon's ruinous wooden tablets halves the Attack stats of all Pokémon except itself.
+Beads of Ruin,The power of the Pokémon's ruinous beads halves the Sp. Def stats of all Pokémon except itself.
+Orichalcum Pulse,Turns sunlight harsh when the Pokémon enters a battle. The ancient pulse thrumming through the Pokémon also boosts its Attack modifier by +2 in harsh sunlight.
+Hadron Engine,Turns the ground into Electric Terrain when the Pokémon enters a battle. The futuristic engine within the Pokémon also boosts its Special Attack modifier by +2 on Electric Terrain.
+Opportunist,"If an opponent's stat is boosted, the Pokémon seizes the opportunity to boost the same stat for itself."
+Cud Chew,"When the Pokémon eats a Berry, it will regurgitate that Berry at the end of the next turn and eat it one more time."
+Sharpness,Slicing moves gain an additional damage die.
+Supreme Overlord,"When the Pokémon enters a battle, its Attack and Special Attack modifiers are increased by +2 for each of the allies in its party that have already been defeated."
+Costar,"When the Pokémon enters a battle, it copies an ally's stat changes."
+Toxic Debris,Scatters poison spikes at the feet of the opposing team when the Pokémon takes damage from physical moves.
+Armor Tail,The mysterious tail covering the Pokémon's head makes opponents unable to use priority moves against the Pokémon or its allies.
+Earth Eater,"If hit by a Ground-type move, the Pokémon restores 2dX HP instead of taking damage, where X is dependent on the Pokémon's HP class."
+Mycelium Might,"The Pokémon will always act at the end of the round when using status moves, but these moves will be unimpeded by the Ability of the target."
+Hospitality,"When this Pokémon enters battle, it restores HP to all allies in a 5ft radius of the Pokémon for 25% of their max HP."
+Supersweet Syrup,"When this Pokémon enters battle, all enemies within a 30ft radius gain a -1 penalty to their Defense and Sp. Defense modifiers until they are switched out."
+Mind's Eye,"The Pokémon can hit Ghost type Pokémon with Normal and Fighting type moves, and it ignores disadvantage imposed on its attack rolls."
+Embody Aspect,"The Pokémon gains a +1 stat stage boost to its Speed, Attack, Sp. Defense, or Defense depending on the mask held when it Terastalizes."
+Toxic Chain,"Whenever the Pokémon hits a target with a move, roll a d10. On an 8-10, the target is badly poisoned."
+Poison Puppeteer,"When the Pokémon poisons a target, it also becomes confused."
+Tera Shift,"When the Pokémon enters a battle, it transforms into its Terastal Form."
+Tera Shell,"While the Pokémon's HP is full, moves that deal damage to it are not very effective."
+Teraform Zero,"When Terapagos changes to its Stellar Form, it eliminates the effects of all weather and terrain."
