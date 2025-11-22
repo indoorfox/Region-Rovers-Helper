@@ -12,7 +12,7 @@ Light
 11|0|0
 9|0|0
 13|10|0
-50ft Walk|50ft Fly
+50ft;Walk|50ft;Fly
 Afterburners;Bonus Action Fly|Reckless;Bonus Damage on Recoil
 Volt Tackle;15 PP;Physical;Electric;Melee;5d10+ATK d10 para half recoil|Acrobatics;15 PP;Physical;Flying;Melee;3d10+ATK or 6d10+ATK if no item
 Acrobatics|Force|Observation

@@ -293,8 +293,12 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
         temp.SPD = [int(linesplit[0]),int(linesplit[1]),int(linesplit[2])]
         linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
         temp.SPE = [int(linesplit[0]),int(linesplit[1]),int(linesplit[2])]
-        #movespeed is an array of strings, one for each kind of movement they actually have, so we can just cast it directly without involving linesplit.
-        temp.movespeed = re.split(r'\|',re.split('\n',parser.readline())[0])
+        #movespeeds are now like abilities [below] so we're doing the same thing
+        linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
+        for movespeed in linesplit:
+            subsplit.append(re.split(';',movespeed))
+        temp.movespeed = subsplit
+        subsplit = []   # we're using this again in a sec
         #each ability is its own array of strings for Reasons, and we want this to work no matter how many abilities they have.
         #granted they shouldn't have more than 2, but we're being cautious here. i'd rather have too much flexibility than not enough.
         linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
@@ -308,7 +312,7 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
         for move in linesplit:
             subsplit.append(re.split(';',move))
         temp.moves = subsplit
-        #talents is just be an array of strings for now until vivi tells me im wrong as fuck which i think i might be
+        #talents is just an array of strings for now until the lead dev tells me im wrong as fuck which i think i might be
         temp.talents = re.split(r'\|',re.split('\n',parser.readline())[0])
         #habitat and diet are stored together in the file but not in the object? why did evie do this is she stupid
         linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
@@ -450,6 +454,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     root.grid_columnconfigure(0,weight=1)
     global defaultlabel
     defaultlabel.destroy()
+    viewer.root = root
     viewer.overviewholder = ttk.Frame(root,height=200)
     viewer.overviewholder.grid(column=0,row=0,sticky='ew')
     # Now we start with actually loading the data into a viewable form. conveniently if these already exist it should just overwrite them with the new values.
@@ -580,6 +585,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.stageatk = StringVar()
     viewer.stageatk.set(str(mon.ATK[2]))
     viewer.stageatkentry = ttk.Combobox(viewer.statholder,textvariable=viewer.stageatk,values=["+6","+5","+4","+3","+2","+1","0","-1","-2","-3","-4","-5","-6"],width=4)
+    viewer.stageatkentry.state(["readonly"])
     viewer.stageatkentry.grid(row=1,column=5)
     viewer.modifieratk = StringVar()
     viewer.modifieratkshow = Label(viewer.statholder,textvariable=viewer.modifieratk)
@@ -605,6 +611,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.stagedef = StringVar()
     viewer.stagedef.set(str(mon.DEF[2]))
     viewer.stagedefentry = ttk.Combobox(viewer.statholder,textvariable=viewer.stagedef,values=["+6","+5","+4","+3","+2","+1","0","-1","-2","-3","-4","-5","-6"],width=4)
+    viewer.stagedefentry.state(["readonly"])
     viewer.stagedefentry.grid(row=2,column=5)
     viewer.modifierdef = StringVar()
     viewer.modifierdefshow = Label(viewer.statholder,textvariable=viewer.modifierdef)
@@ -630,6 +637,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.stagespa = StringVar()
     viewer.stagespa.set(str(mon.SPA[2]))
     viewer.stagespaentry = ttk.Combobox(viewer.statholder,textvariable=viewer.stagespa,values=["+6","+5","+4","+3","+2","+1","0","-1","-2","-3","-4","-5","-6"],width=4)
+    viewer.stagespaentry.state(["readonly"])
     viewer.stagespaentry.grid(row=3,column=5)
     viewer.modifierspa = StringVar()
     viewer.modifierspashow = Label(viewer.statholder,textvariable=viewer.modifierspa)
@@ -655,6 +663,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.stagespd = StringVar()
     viewer.stagespd.set(str(mon.SPD[2]))
     viewer.stagespdentry = ttk.Combobox(viewer.statholder,textvariable=viewer.stagespd,values=["+6","+5","+4","+3","+2","+1","0","-1","-2","-3","-4","-5","-6"],width=4)
+    viewer.stagespdentry.state(["readonly"])
     viewer.stagespdentry.grid(row=4,column=5)
     viewer.modifierspd = StringVar()
     viewer.modifierspdshow = Label(viewer.statholder,textvariable=viewer.modifierspd)
@@ -680,6 +689,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.stagespe = StringVar()
     viewer.stagespe.set(str(mon.SPE[2]))
     viewer.stagespeentry = ttk.Combobox(viewer.statholder,textvariable=viewer.stagespe,values=["+6","+5","+4","+3","+2","+1","0","-1","-2","-3","-4","-5","-6"],width=4)
+    viewer.stagespeentry.state(["readonly"])
     viewer.stagespeentry.grid(row=5,column=5)
     viewer.modifierspe = StringVar()
     viewer.modifierspeshow = Label(viewer.statholder,textvariable=viewer.modifierspe)
@@ -689,8 +699,24 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     #this box is just to make things not weird.
     viewer.movementholder = ttk.Frame(root,height=200)
     viewer.movementholder.grid(column=0,row=2,sticky='ew')
+    viewer.movements = []
+    for i in range(len(mon.movespeed)):  #dynamic length for this bc some mons will have more unique movespeeds than others
+        viewer.movements.append([])     #holds an individual movespeed
+        viewer.movements[i].append(StringVar())
+        viewer.movements[i][0].set(mon.movespeed[i][0])
+        viewer.movements[i].append(StringVar())
+        viewer.movements[i][1].set(mon.movespeed[i][1])
+        viewer.movements[i].append(Entry(viewer.movementholder,textvariable=viewer.movements[i][0],width=10))
+        viewer.movements[i][2].grid(row=0,column=(2*i))     #i think this is the simplest way to do this
+        viewer.movements[i].append(ttk.Combobox(viewer.movementholder,textvariable=viewer.movements[i][1],values=["Walk","Climb","Hover","Swim","Fly","Burrow","Phase"],width=10))
+        viewer.movements[i][3].grid(row=0,column=(2*i)+1)   #next to the other one
+    viewer.addmovementspeed = Button(viewer.movementholder,text="+",command=partial(addmovespeed,viewer))
+    viewer.addmovementspeed.grid(row=0,column=2*len(viewer.movements))
+    viewer.removemovementspeed = Button(viewer.movementholder,text="-",command=partial(removemovespeed,viewer))
+    viewer.removemovementspeed.grid(row=0,column=2*len(viewer.movements)+1)
+
     #TODO: add: movement speeds, abilities, moves, talents, habitat//diet, egg group, evolution(s)
-    #TODO: do version control with git
+    
 
 
     updateStats(viewer)
@@ -699,6 +725,29 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     root.update_idletasks()
     return
 
+def addmovespeed(viewer,*args):     #add a new movement speed block.
+    i = len(viewer.movements)
+    viewer.movements.append([])     #holds an individual movespeed
+    viewer.movements[i].append(StringVar())
+    viewer.movements[i][0].set("")
+    viewer.movements[i].append(StringVar())
+    viewer.movements[i][1].set("")
+    viewer.movements[i].append(Entry(viewer.movementholder,textvariable=viewer.movements[i][0],width=10))
+    viewer.movements[i][2].grid(row=0,column=(2*i))     #i think this is the simplest way to do this
+    viewer.movements[i].append(ttk.Combobox(viewer.movementholder,textvariable=viewer.movements[i][1],values=["Walk","Climb","Hover","Swim","Fly","Burrow","Phase"],width=10))
+    viewer.movements[i][3].grid(row=0,column=(2*i)+1)   #next to the other one
+    viewer.addmovementspeed.grid(row=0,column=2*i+2)    #gotta move these too can't forget
+    viewer.removemovementspeed.grid(row=0,column=(2*i)+3)
+    return
+
+def removemovespeed(viewer,*args):  #remove the furthest right movement speed block.
+    viewer.movements[-1][2].destroy()
+    viewer.movements[-1][3].destroy()
+    del viewer.movements[-1]
+    viewer.addmovementspeed.grid(row=0,column=2*len(viewer.movements))
+    viewer.removemovementspeed.grid(row=0,column=2*len(viewer.movements)+1)
+    viewer.root.update_idletasks()
+    return
 
 init()  #run the initialisation.
 currentMon = char(name="EMPTY",notes="IF YOU'RE SEEING THIS SOMETHING'S BROKEN")    #default currentmon. might phase this out later.
