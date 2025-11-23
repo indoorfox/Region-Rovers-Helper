@@ -123,8 +123,9 @@ def parsepokedex(custom):   #this doesnt even like actually parse it does it it 
 
 def parseabilitydex(custom):    #load ability data from files
     parser = open(os.path.join(__location__,'Abilitydex.csv'),'r')
-    abilitydex = []
+    abilitydex = [[],[]]
     linesplit = []
+    i = 0
     while True:
         line = re.split('\n',parser.readline())[0]
         if(line == ""):
@@ -135,7 +136,8 @@ def parseabilitydex(custom):    #load ability data from files
         if(len(linesplit)==1):
             linesplit = re.split(",",line)  #if theres no quote just cut on the comma
         #print("added "+linesplit[0]+" to abilitydex with description "+linesplit[1])
-        abilitydex.append(linesplit)
+        abilitydex[0].append(linesplit[0])
+        abilitydex[1].append(linesplit[1])
     parser.close
     if(custom):
         try:
@@ -145,7 +147,8 @@ def parseabilitydex(custom):    #load ability data from files
                 if(line == ""):
                     break
                 linesplit = re.split(r"\|",line)    #there might be commas in the description. go my pipes
-                abilitydex.append(linesplit)
+                abilitydex[0].append(linesplit[0])
+                abilitydex[1].append(linesplit[1])
             parser.close
         except:
             print("No custom ability data found!")  #sometimes theyll only have some custom data so do this instead
@@ -179,7 +182,7 @@ def parseitemdex(custom):   #load item data from files
 
 def parsemovedex(custom):   #load move data from files
     parser = open(os.path.join(__location__,"Movedex.csv"),'r')
-    movedex = []
+    movedex = [[],[],[],[],[],[]]
     linesplit = []
     temp = []
     move = [] 
@@ -196,7 +199,7 @@ def parsemovedex(custom):   #load move data from files
         if(len(temp)!=1): 
             move.append(temp[1][1:])
         else:
-            move.append("Z-Move")   #these are just listed with no pp value which i get but thats gonna break shit
+            move.append("SPECIAL")   #these are just listed with no pp value which i get but thats gonna break shit
         temp = re.split(",",linesplit[1])   #break the second section [category and type]
         move.append(temp[0][1:])    #leading space bad
         move.append(temp[1][1:])    #also a leading space
@@ -210,7 +213,8 @@ def parsemovedex(custom):   #load move data from files
                 desc+=sentence+". "     #stitch all the sentences back together
             move.append(desc[:-3])  #this clears out the trailing quote and the '. ' we added
         #print("adding move "+move[0]+ " with "+move[1]+", category "+move[2]+", type "+move[3]+", range "+move[4]+" and description "+move[5]+" to movedex.")
-        movedex.append(move)
+        for i in range(6):
+            movedex[i].append(move[i])
     parser.close
     if(custom):
         try:
@@ -220,7 +224,8 @@ def parsemovedex(custom):   #load move data from files
                 if(line == ""):
                     break
                 linesplit = re.split(r"\|",line)    #i'm making my own file and its gonna be NORMAL this time rahh
-                movedex.append(move)
+                for i in range(6):
+                    movedex[i].append(move[i])
             parser.close
         except:
             print("No custom move data found!")     #sometimes no custom moves so this is here to not brick the program
@@ -325,10 +330,12 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
         currentMon.copy(temp)   #okay, now that you've gone through all of the file with no errors, load that.
     except:
         messagebox.showerror(message="Something went wrong processing "+filename+".")   #happens if you load a file that's, yknow, not an actual file. this is actually probably still too permissive.
+    viewer.append(tkinterholder())
+    viewer[-1].mon=temp
     parser.close()  #we don't need this still open
     window = PokemonWindow()    #create the new menu so that you can have multiple characters open at once [say, i dunno, your whole team]
     window.setuppokemonwindow() #sets up the 'File' menu. i might have it do more later.
-    loadMonView(viewer,window,currentMon)   #this actually initialises the new window.
+    loadMonView(viewer[-1],window,viewer[-1].mon)   #this actually initialises the new window.
     return
 
 def check_num(newval): #this thing checks if entry is all numbers so people don't say their level is over 9000 or some crap
@@ -695,6 +702,13 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.modifierspeshow = Label(viewer.statholder,textvariable=viewer.modifierspe)
     viewer.modifierspeshow.grid(row=5,column=6)
 
+    # let's make those stage boxes automatically run the stat update command to show the changed modifier.
+    viewer.stageatkentry.bind('<<ComboboxSelected>>',partial(updateStats,viewer))
+    viewer.stagedefentry.bind('<<ComboboxSelected>>',partial(updateStats,viewer))
+    viewer.stagespaentry.bind('<<ComboboxSelected>>',partial(updateStats,viewer))
+    viewer.stagespdentry.bind('<<ComboboxSelected>>',partial(updateStats,viewer))
+    viewer.stagespeentry.bind('<<ComboboxSelected>>',partial(updateStats,viewer))
+
     #okay. now that that's out of the way...
     #this box is just to make things not weird.
     viewer.movementholder = ttk.Frame(root,height=200)
@@ -715,14 +729,157 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.removemovementspeed = Button(viewer.movementholder,text="-",command=partial(removemovespeed,viewer))
     viewer.removemovementspeed.grid(row=0,column=2*len(viewer.movements)+1)
 
-    #TODO: add: movement speeds, abilities, moves, talents, habitat//diet, egg group, evolution(s)
-    
-
-
+    #TODO: add: talents, habitat//diet, egg group, evolution(s)
+    # call me insane cant i do literally the same thing with abilities as with movementspeeds bc they're both
+    # mm no actually i want to format them slightly differently
+    # close, though. very close.
+    viewer.abilityholder = ttk.Frame(root,height=200)
+    viewer.abilityholder.grid(column=0,row=3,sticky='ew')
+    viewer.abilities = []
+    for i in range(len(mon.abilities)):
+        viewer.abilities.append([])
+        viewer.abilities[i].append(StringVar())
+        viewer.abilities[i][0].set(mon.abilities[i][0])
+        viewer.abilities[i].append(Entry(viewer.abilityholder,textvariable=viewer.abilities[i][0],width=20))
+        viewer.abilities[i][1].grid(row=2*i,column=0,sticky='w',columnspan=2)     #i think this is the simplest way to do this
+        viewer.abilities[i].append(Text(viewer.abilityholder,width=100,height=2,wrap="word"))
+        viewer.abilities[i][2].insert('1.0',mon.abilities[i][1])
+        viewer.abilities[i][2].grid(row=2*i+1,column=0,columnspan=3)
+        viewer.abilities[i].append(Button(viewer.abilityholder,text="Lookup",command=partial(abilitylookupbutton,viewer.abilities[i])))
+        viewer.abilities[i][3].grid(row=2*i,column=2,sticky='w')
+    viewer.addability = Button(viewer.abilityholder,text="+",command=partial(addnewability,viewer))
+    viewer.addability.grid(column=0,row=2*len(viewer.abilities),sticky='w')
+    viewer.removeability = Button(viewer.abilityholder,text="-",command=partial(removelastability,viewer))
+    viewer.removeability.grid(column=1,row=2*len(viewer.abilities),sticky='w')
+    # ok moves are basically the same as abilities except there's more boxes gwuhh
+    viewer.moveholder = ttk.Frame(root)
+    viewer.moveholder.grid(column=0,row=4,sticky='ew')
+    viewer.moves = []
+    for i in range(len(mon.moves)):
+        viewer.moves.append([])
+        for j in range(6):
+            viewer.moves[i].append(StringVar())
+            viewer.moves[i][j].set(mon.moves[i][j])
+        viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][0],width=20))
+        viewer.moves[i][6].grid(row=3*i,column=0,sticky='w',columnspan=2)
+        viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][1],width=3))
+        viewer.moves[i][7].grid(row=3*i,column=2,sticky='w')
+        viewer.moves[i].append(Label(viewer.moveholder,text="/"))
+        viewer.moves[i][8].grid(row=3*i,column=3,sticky='w')
+        viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][2],width=10))
+        viewer.moves[i][9].grid(row=3*i,column=4,sticky='w')
+        viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][3],width=20))
+        viewer.moves[i][10].grid(row=3*i+1,column=0,sticky='w',columnspan=2)
+        viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][4],width=15))
+        viewer.moves[i][11].grid(row=3*i+1,column=2,sticky='w',columnspan=3)
+        viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][5],width=15))
+        viewer.moves[i][12].grid(row=3*i+1,column=5,sticky='w')
+        viewer.moves[i].append(Text(viewer.moveholder,width=100,height=2,wrap="word"))
+        viewer.moves[i][13].grid(row=3*i+2,column=0,sticky='ew',columnspan=6)
+        viewer.moves[i][13].insert('1.0',mon.moves[i][6])
+        viewer.moves[i].append(Button(viewer.moveholder,text="Lookup",command=partial(movelookupbutton,viewer.moves[i])))
+        viewer.moves[i][14].grid(row=3*i,column=5,sticky='w')
+    viewer.addmove = Button(viewer.moveholder,text="+",command=partial(addnewmove,viewer))
+    viewer.addmove.grid(row=3*len(viewer.moves),column=0,sticky='w')
+    viewer.removemove = Button(viewer.moveholder,text="-",command=partial(removelastmove,viewer))
     updateStats(viewer)
     # tell the thing to do its job
     root.bind("<Return>",partial(updateStats,viewer))
     root.update_idletasks()
+    return
+
+def movelookupbutton(moveblock,*args):
+    global Movedex
+    try:
+        i = Movedex[0].index(moveblock[0].get())
+        text = Movedex[5][i]
+        moveblock[2].set(Movedex[1][i])
+        moveblock[3].set(Movedex[2][i])
+        moveblock[4].set(Movedex[3][i])
+        moveblock[5].set(Movedex[4][i])
+        moveblock[13].delete('1.0','end')
+        moveblock[13].insert('1.0',text)
+    except:
+        print("fuck")
+        print(i)
+        print(text)
+        pass
+    return
+
+def addnewmove(viewer,*args):
+    i=len(viewer.moves)
+    viewer.moves.append([])
+    for j in range(6):
+        viewer.moves[i].append(StringVar())
+        viewer.moves[i][j].set("")
+    viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][0],width=20))
+    viewer.moves[i][6].grid(row=3*i,column=0,sticky='w',columnspan=2)
+    viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][1],width=3))
+    viewer.moves[i][7].grid(row=3*i,column=2,sticky='w')
+    viewer.moves[i].append(Label(viewer.moveholder,text="/"))
+    viewer.moves[i][8].grid(row=3*i,column=3,sticky='w')
+    viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][2],width=10))
+    viewer.moves[i][9].grid(row=3*i,column=4,sticky='w')
+    viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][3],width=20))
+    viewer.moves[i][10].grid(row=3*i+1,column=0,sticky='w',columnspan=2)
+    viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][4],width=15))
+    viewer.moves[i][11].grid(row=3*i+1,column=2,sticky='w',columnspan=3)
+    viewer.moves[i].append(Entry(viewer.moveholder,textvariable=viewer.moves[i][5],width=15))
+    viewer.moves[i][12].grid(row=3*i+1,column=5,sticky='w')
+    viewer.moves[i].append(Text(viewer.moveholder,width=100,height=2,wrap="word"))
+    viewer.moves[i][13].grid(row=3*i+2,column=0,sticky='ew',columnspan=6)
+    viewer.moves[i][13].insert('1.0',"")
+    viewer.moves[i].append(Button(viewer.moveholder,text="Lookup",command=partial(movelookupbutton,viewer.moves[i])))
+    viewer.moves[i][14].grid(row=3*i,column=5,sticky='w')
+    viewer.addmove.grid(row=3*len(viewer.moves))
+    viewer.removemove.grid(row=3*len(viewer.moves))
+
+def removelastmove(viewer,*args):
+    for i in range(len(viewer.moves[-1])):
+        try:
+            viewer.moves[-1][i].destroy()
+        except:
+            pass
+    del viewer.moves[-1]
+    viewer.addmove.grid(row=3*len(viewer.moves))
+    viewer.removemove.grid(row=3*len(viewer.moves))
+
+def abilitylookupbutton(abilityblock,*args):
+    global Abilitydex
+    try:
+        i = Abilitydex[0].index(abilityblock[0].get())
+        text = Abilitydex[1][i]
+        abilityblock[2].delete('1.0','end')
+        abilityblock[2].insert('1.0',text)
+    except:
+        pass
+    return
+
+def addnewability(viewer,*args):    #add a new ability block.
+    i = len(viewer.abilities)
+    viewer.abilities.append([])
+    viewer.abilities[i].append(StringVar())
+    viewer.abilities[i][0].set("")
+    viewer.abilities[i].append(Entry(viewer.abilityholder,textvariable=viewer.abilities[i][0],width=20))
+    viewer.abilities[i][1].grid(row=2*i,column=0,columnspan=2,sticky='w')     #i think this is the simplest way to do this
+    viewer.abilities[i].append(Text(viewer.abilityholder,width=100,height=6,wrap="word"))
+    viewer.abilities[i][2].insert('1.0',"")
+    viewer.abilities[i][2].grid(row=2*i+1,column=0,columnspan=3)
+    viewer.abilities[i].append(Button(viewer.abilityholder,text="Lookup",command=partial(abilitylookupbutton,viewer.abilities[i])))
+    viewer.abilities[i][3].grid(row=2*i,column=2,sticky='w')
+    viewer.addability.grid(row=2*len(viewer.abilities))
+    viewer.removeability.grid(row=2*len(viewer.abilities))
+    return
+
+def removelastability(viewer,*args):    #removes the last ability block in the list.
+    if(len(viewer.abilities)==1):
+        return
+    viewer.abilities[-1][1].destroy()
+    viewer.abilities[-1][2].destroy()
+    viewer.abilities[-1][3].destroy()
+    del viewer.abilities[-1]
+    viewer.addability.grid(row=2*len(viewer.abilities))
+    viewer.removeability.grid(row=2*len(viewer.abilities))
     return
 
 def addmovespeed(viewer,*args):     #add a new movement speed block.
@@ -751,7 +908,7 @@ def removemovespeed(viewer,*args):  #remove the furthest right movement speed bl
 
 init()  #run the initialisation.
 currentMon = char(name="EMPTY",notes="IF YOU'RE SEEING THIS SOMETHING'S BROKEN")    #default currentmon. might phase this out later.
-viewer = tkinterholder()    #this class literally just exists to pull things into global availability without me having to say 'global' one billion times
+viewer = [] #ok call me crazy but im doing it this way now
 root = Tk()
 root.option_add('*tearOff', FALSE)  #apparently this is just. on by default? why is it like that?
 root.title("Iibui's Comprehensive Region Rovers Pokemon Helper")
@@ -782,10 +939,9 @@ m_view.add_command(label="View Move Dex")
 m_debug = Menu(m)
 m.add_cascade(menu=m_debug,label="Debug")
 
-def quickdebugname(viewer):
-    print(viewer.name.get())
 
-m_debug.add_command(label="Print Current Name to Console",command=lambda: root.event_generate(quickdebugname(viewer)))
+
+#m_debug.add_command(label="Print Current Name to Console",command=lambda: root.event_generate(quickdebugname(viewer)))
 #actually assign the menus to the window
 root['menu'] = m
 
