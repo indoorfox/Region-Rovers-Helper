@@ -39,7 +39,7 @@ class char:     #class which holds a pokemon's data
     #but its whatever this takes all the pokemon stuff
     #later im probably gonna go 'oh i should make trainers too' and then grumble at myself abt calling this class 'char' but whatever
     #the pokemon are the real characters yknow
-    def __init__(self,name = "Name",species = "Species",type = "Type",level = 0,exp = [0,100],nature = "Quirky",size = "Medium",weight = "Medium",hp = [0,0,"Average"],ATK = [0,0,0],DEF = [0,0,0],SPA = [0,0,0],SPD = [0,0,0],SPE = [0,0,0],movespeed = ["30ft Walk"],abilities = [["",""]],moves = [["","","","","",""]],talents = [""],diet = "Omnivore",habitat = "Urban",egggroups = ["Field"],evolution = ["This Pokemon cannot evolve."],notes = ""):
+    def __init__(self,name = "Name",species = "Species",type = "Type",level = 0,exp = [0,100],nature = "Quirky",size = "Medium",weight = "Medium",hp = [0,0,"Average"],ATK = [0,0,0],DEF = [0,0,0],SPA = [0,0,0],SPD = [0,0,0],SPE = [0,0,0],movespeed = [["30ft","Walk"]],abilities = [["",""]],moves = [["","","","","","",""]],talents = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],diet = "Omnivore",habitat = "Urban",egggroups = ["Field"],evolution = "This Pokemon cannot evolve.",notes = ""):
         self.name = name
         self.species = species
         self.type = type
@@ -264,6 +264,15 @@ def saveCheck(loaded):  #this is gonna check if you want to save data before clo
         print("check if the user wants to save the current mon")
     return
 
+def newBlankMon(viewer):
+    temp = char()
+    viewer.append(tkinterholder())
+    viewer[-1].mon=temp
+    window = PokemonWindow()
+    window.setuppokemonwindow()
+    loadMonView(viewer[-1],window,viewer[-1].mon)
+    return
+
 def openFile(currentMon,viewer):    #this does the actual loading of a file into a character object part, then calls loadMonView to make the window.
     temp = char()   #make this a temp bc if we have a problem we don't want to kill the currentmon. i should also fix this later, we don't want to have 1 universal 'currentmon' now that we're running multiple windows.
     linesplit = []
@@ -317,15 +326,20 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
         for move in linesplit:
             subsplit.append(re.split(';',move))
         temp.moves = subsplit
-        #talents is just an array of strings for now until the lead dev tells me im wrong as fuck which i think i might be
-        temp.talents = re.split(r'\|',re.split('\n',parser.readline())[0])
+        #talents is an int array bc im gonna parse it different later
+        linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
+        subsplit = []
+        for talent in linesplit:
+            subsplit.append(int(talent))
+        temp.talents = subsplit
         #habitat and diet are stored together in the file but not in the object? why did evie do this is she stupid
         linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
         temp.habitat = linesplit[0]
         temp.diet = linesplit[1]
         #eggroups another array of strings thankfully. should also be a max of 2 but w/e
         temp.egggroups = re.split(r'\|',re.split('\n',parser.readline())[0])
-        temp.notes = re.split('\n',parser.readline())[0] #notes are just one long string and i don't give a shit what's there. if the user enters newlines we'll parse them into something ourselves.
+        temp.evolution = re.split('\n',parser.readline())[0]    #evolution should also just be one long string, but I may adjust this later.
+        temp.notes = re.split('\n',parser.readline())[0]    #notes are just one long string and i don't give a shit what's there. if the user enters newlines we'll parse them into something ourselves.
 
         currentMon.copy(temp)   #okay, now that you've gone through all of the file with no errors, load that.
     except:
@@ -782,6 +796,49 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.addmove = Button(viewer.moveholder,text="+",command=partial(addnewmove,viewer))
     viewer.addmove.grid(row=3*len(viewer.moves),column=0,sticky='w')
     viewer.removemove = Button(viewer.moveholder,text="-",command=partial(removelastmove,viewer))
+    viewer.removemove.grid(row=3*len(viewer.moves),column=1,sticky='w')
+    
+    viewer.talentsholder = ttk.Frame(root)
+    viewer.talentsholder.grid(column=0,row=5,sticky='ew')
+    talentshelper = ["Athletics","Force","Acrobatics","Balance","Stealth","Sleight of Hand","Vitality","Concentration","Recovery","Composure","Tech","Observation","History","Nature","Speech","Style","Pokemon Handling","Insight","Intimidate"]
+    viewer.talents = Text(viewer.talentsholder,width=100,height=2,wrap="word")
+    talentflag = False
+    for i in range(len(talentshelper)):
+        if mon.talents[i]==1:
+            if(talentflag):
+                viewer.talents.insert('end',", ")
+            else:
+                talentflag = True
+            viewer.talents.insert('end',talentshelper[i])
+    viewer.talents.grid(column=0,row=0,sticky='ew')
+
+    viewer.environmentholder = ttk.Frame(root)
+    viewer.environmentholder.grid(column=0,row=6,sticky='ew')
+    viewer.habitat = StringVar()
+    viewer.habitat.set(mon.habitat)
+    viewer.habitatentry = Entry(viewer.environmentholder,textvariable=viewer.habitat,width=15)
+    viewer.habitatentry.grid(column=0,row=0)
+    viewer.diet = StringVar()
+    viewer.diet.set(mon.diet)
+    viewer.dietentry = Entry(viewer.environmentholder,textvariable=viewer.diet,width=15)
+    viewer.dietentry.grid(column=1,row=0)
+    viewer.egggroups = StringVar()
+    if(len(mon.egggroups)==2):
+        viewer.egggroups.set(mon.egggroups[0]+","+mon.egggroups[1])
+    else:
+        viewer.egggroups.set(mon.egggroups[0])
+    viewer.egggroupsentry = Entry(viewer.environmentholder,textvariable=viewer.egggroups,width=30)
+    viewer.egggroupsentry.grid(column=2,row=0)
+
+    viewer.evolution = Text(root,height=2,width=100,wrap="word")
+    viewer.evolution.grid(column=0,row=7,sticky='w')
+    viewer.evolution.insert('1.0',mon.evolution)
+
+    viewer.notes = Text(root,height=3,width=100,wrap="word")
+    viewer.notes.grid(column=0,row=8,sticky='w')
+    viewer.notes.insert('1.0',mon.notes)
+
+
     updateStats(viewer)
     # tell the thing to do its job
     root.bind("<Return>",partial(updateStats,viewer))
@@ -919,7 +976,7 @@ m = Menu(root)
 #file menu
 m_file = Menu(m)
 m.add_cascade(menu=m_file,label="File")
-m_file.add_command(label="New Blank Pokemon Sheet")
+m_file.add_command(label="New Blank Pokemon Sheet",command=lambda: root.event_generate(newBlankMon(viewer)))
 m_file.add_command(label="New Generated Pokemon Sheet")
 m_file.add_command(label="Open...",command=lambda: root.event_generate(openFile(currentMon,viewer)))
 m_file.add_separator()
