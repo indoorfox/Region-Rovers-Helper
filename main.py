@@ -5,6 +5,9 @@ from tkinter import ttk, messagebox
 from tkinter import filedialog
 from functools import partial
 import math
+import random
+
+random.seed()
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -97,7 +100,7 @@ class char:     #class which holds a pokemon's data
 
 def parsepokedex(custom):   #this doesnt even like actually parse it does it it just loads it. whatever. later.
     parser = open(os.path.join(__location__, 'PokedexData.csv'), 'r')
-    pokedex = []
+    pokedex = {}
     linesplit = []
     line = re.split('\n',parser.readline())[0]  #there's a line at the start that we want to clear. this maybe could just be 'parser.readline()'.
     while True:     #go through the whole file.
@@ -105,7 +108,7 @@ def parsepokedex(custom):   #this doesnt even like actually parse it does it it 
         if(line == ""):
             break   #thats the end of the file.
         linesplit = re.split(",",line)
-        pokedex.append(linesplit)   #we're not doing anything crazy because this is a sane and normal csv. unlike the rest.
+        pokedex[linesplit[3]] = linesplit[:3]+linesplit[4:]   #oh fuck i shoulda been using libraries for the dexes this whole time i might genuinely be stupid
     parser.close
     if(custom):
         try:
@@ -115,7 +118,7 @@ def parsepokedex(custom):   #this doesnt even like actually parse it does it it 
                 if(line == ""):
                     break
                 linesplit = re.split(",",line)
-                pokedex.append(linesplit)
+                pokedex[linesplit[3]]=linesplit[:3]+linesplit[4:]
             parser.close
         except:
             print("No custom pokedex data found!")  #sometimes theyll only have some custom data so this is here for that
@@ -271,6 +274,141 @@ def newBlankMon(viewer):
     window = PokemonWindow()
     window.setuppokemonwindow()
     loadMonView(viewer[-1],window,viewer[-1].mon)
+    return
+
+def monGeneratorWindow(viewer,root):
+    window = Toplevel(root)
+    window.title("Generate New Pokemon Sheet")
+    speciesLabel = Label(window,text="Species (separate with commas to choose at random): ")
+    speciesLabel.grid(sticky='w')
+    species = StringVar()
+    speciesEntry = Entry(window,textvariable=species,width=40)
+    speciesEntry.grid(row=0,column=1)
+    levelLabel = Label(window,text="Level (use ##-## for range): ")
+    levelLabel.grid(row=1,column=0,sticky='w')
+    level = StringVar()
+    levelEntry = Entry(window,textvariable=level,width=10)
+    levelEntry.grid(row=1,column=1)
+    hproll = BooleanVar(value=False)
+    hpButton = Checkbutton(window,text="Automatically roll for HP increase?",variable=hproll)
+    hpButton.grid(row=2,columnspan=2,sticky='w')
+    randnature = BooleanVar(value=False)
+    natureButton = Checkbutton(window,text="Randomize Nature?",variable=randnature)
+    natureButton.grid(row=3,columnspan=2,sticky='w')
+    assignstatsLabel = Label(window,text="Assign stats abolve level 5:")
+    assignstatsLabel.grid(row=4,sticky='w')
+    stats = IntVar(value=0)
+    statsWeighted = Radiobutton(window,variable=stats,value=1,text="Weighted by base stats")
+    statsManual = Radiobutton(window,variable=stats,value=0,text="Manually")
+    statsWeighted.grid(row=4,column=1,sticky='w')
+    statsManual.grid(row=4,column=2,sticky='w')
+    assignAbilitiesLabel = Label(window,text="Abilities (chosen randomly):")
+    assignAbilitiesLabel.grid(row=5,sticky='w')
+    abilities=[IntVar(value=1),IntVar(value=0),IntVar(value=0),IntVar(value=0)]
+    ability1 = Checkbutton(window,variable=abilities[0],text="1")
+    ability2 = Checkbutton(window,variable=abilities[1],text="2")
+    ability3 = Checkbutton(window,variable=abilities[2],text="Hidden")
+    abilityall = Checkbutton(window,variable=abilities[3],text="Include all selected")
+    ability1.grid(row=5,column=1,sticky='w')
+    ability2.grid(row=5,column=2,sticky='w')
+    ability3.grid(row=5,column=3,sticky='w')
+    abilityall.grid(row=5,column=4,sticky='w')
+    warninglabel = Label(window,text="NOTE: Pokedex data is currently incomplete. Generated Pokemon will be missing some information.")
+    warninglabel.grid(row=6,columnspan=5,sticky='w')
+    invalid = StringVar(value="")
+    invalidmonlabel = Label(window,textvariable=invalid,foreground="red")
+    invalidmonlabel.grid(row=7,column=1)
+    generateButton = Button(window,text="Generate!",command=partial(prepGenerate,viewer,species,level,hproll,randnature,stats,abilities,invalid,window))
+    generateButton.grid(row=7,sticky='w')
+    
+    return
+
+def prepGenerate(viewer,species,level,hproll,randnature,stats,abilities,invalid,root):
+    newspecies = "TEXT PROCESSOR ERROR"
+    try:
+        newspecies = random.choice(re.split(r',\s*',species.get())).title()
+        if(len(re.split(r"\s*-\s*",level.get()))==1):
+            try:
+                newlevel=int(level.get())
+            except:
+                invalid.set("Could not resolve level!")
+                return
+        else:
+            levelrange=re.split(r"\s*-\s*",level.get())
+            try:
+                newlevel=random.randint(int(levelrange[0]),int(levelrange[1]))
+            except:
+                invalid.set("Could not resolve level!")
+                return
+        print("getting pokemon with id "+Pokedex[newspecies][2]+" at level "+str(newlevel))
+    except:
+        invalid.set("Could not find the species "+newspecies+"!")
+        return
+    viewer.append(tkinterholder())
+    generateMon(viewer[-1],newspecies,newlevel,hproll.get(),randnature.get(),stats.get(),[abilities[0].get(),abilities[1].get(),abilities[2].get(),abilities[3].get()])
+    return
+
+def generateMon(viewer,species,level,hproll,randnature,stats,abilities):
+    global Pokedex
+    global Abilitydex
+    viewer.mon = char(species=species,level=level)
+    hpclass = ["Weak","Average","Above Average","Bulky","Tank"]
+    if(hproll):
+        hp = int(Pokedex[species][6])
+        viewer.mon.hp=[0,0,Pokedex[species][5]]
+        if(level>5):
+            dx = 2*hpclass.index(viewer.mon.hp[2])+4
+            for i in range(level-5):
+                hp+=random.randint(1,dx)
+        viewer.mon.hp[0] = hp
+        viewer.mon.hp[1] = hp
+    else:
+        viewer.mon.hp=[int(Pokedex[species][6]),int(Pokedex[species][6]),Pokedex[species][5]]
+    if(randnature):
+        viewer.mon.nature=random.choice(["Hardy","Lonely","Adamant","Naughty","Brave","Bold","Docile","Impish","Lax","Relaxed","Modest","Mild","Bashful","Rash","Quiet","Calm","Gentle","Careful","Quirky","Sassy","Timid","Hasty","Jolly","Naive","Serious"])
+    statsarray = ["ATK","DEF","SPA","SPD","SPE"]
+    if(stats==1):
+        if(level>5):
+            gained = math.floor((level-5)*1.5)
+            weights = [1,0,0,0,0]
+            for i in range(5):
+                weights[i]=int(Pokedex[species][7+i])
+                exec("viewer.mon."+statsarray[i]+"[1]=0")
+                exec("viewer.mon."+statsarray[i]+"[0]=weights[i]")   #this is a TERRIBLE idea but it might actually work. I should probably just reformat the way I save stats tho.
+            #print(weights)
+            for i in range(gained):
+                exec("viewer.mon."+random.choices(statsarray,weights,k=1)[0]+"[1]+=1")  #still a terrible idea
+        else:
+            for i in range(5):
+                exec("viewer.mon."+statsarray[i]+"[0]=Pokedex[species][7+i]")
+    else:
+        for i in range(5):
+                exec("viewer.mon."+statsarray[i]+"[0]=Pokedex[species][7+i]")    #i kinda hate that im reusing this terrible workaround but it should work
+    viewer.mon.type=Pokedex[species][3]
+    if(Pokedex[species][4]!=""):
+        viewer.mon.type+=", "+Pokedex[species][4]
+    if(abilities[3]):
+        viewer.mon.abilities=[]
+        for i in range(3):
+            if(abilities[i] and (Pokedex[species][20+i]!="")):
+                viewer.mon.abilities.append([Pokedex[species][20+i],Abilitydex[1][Abilitydex[0].index(Pokedex[species][20+i])]])
+        if(len(viewer.mon.abilities)==0):
+            viewer.mon.abilities.append(["",""])
+    else:
+        ability = random.choices([Pokedex[species][20],Pokedex[species][21],Pokedex[species][22]],abilities[0:3],k=1)[0]
+        try:
+            viewer.mon.abilities= [[ability,Abilitydex[1][Abilitydex[0].index(ability)]]]
+        except:
+            viewer.mon.abilities=[["",""]]
+    viewer.mon.size=Pokedex[species][15]
+    viewer.mon.weight=Pokedex[species][17]
+    
+    viewer.mon.egggroups=[Pokedex[species][18]]
+    if(Pokedex[species][19]!=""):
+        viewer.mon.egggroups.append(Pokedex[species][19])
+    window = PokemonWindow()
+    window.setuppokemonwindow()
+    loadMonView(viewer,window,viewer.mon)
     return
 
 def openFile(currentMon,viewer):    #this does the actual loading of a file into a character object part, then calls loadMonView to make the window.
@@ -977,7 +1115,7 @@ m = Menu(root)
 m_file = Menu(m)
 m.add_cascade(menu=m_file,label="File")
 m_file.add_command(label="New Blank Pokemon Sheet",command=lambda: root.event_generate(newBlankMon(viewer)))
-m_file.add_command(label="New Generated Pokemon Sheet")
+m_file.add_command(label="New Generated Pokemon Sheet",command=lambda: root.event_generate(monGeneratorWindow(viewer,root)))
 m_file.add_command(label="Open...",command=lambda: root.event_generate(openFile(currentMon,viewer)))
 m_file.add_separator()
 m_file.add_command(label="Save")
