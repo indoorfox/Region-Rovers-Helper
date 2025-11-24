@@ -14,22 +14,27 @@ __location__ = os.path.realpath(
 
 class PokemonWindow(Toplevel): #this literally exists just to shortcut the process of making this menu and i dont even know if it saves any time
     def setuppokemonwindow(self):
-        m = Menu()
-        m_file = Menu(m)
+        self.m = Menu()
+        self.m_file = Menu(self.m)
         #make the file menu this is all mostly self explanatory
         #right now most of it doesnt work tho saving data is a problem for future me
-        m.add_cascade(menu=m_file,label="File")
-        m_file.add_command(label="New Blank Pokemon Sheet")
-        m_file.add_command(label="New Generated Pokemon Sheet")
-        m_file.add_command(label="Open...",command=lambda: self.event_generate(openFile(currentMon,viewer)))
-        m_file.add_separator()
-        m_file.add_command(label="Save")
-        m_file.add_command(label="Save As...")
-        m_file.add_separator()
-        m_file.add_command(label="Reload Dex",command=reloadDexData)
-        m_file.add_separator()
-        m_file.add_command(label="Exit",command=self.destroy) #you should. now.
-        self['menu'] = m
+        self.m.add_cascade(menu=self.m_file,label="File")
+        self.m_file.add_command(label="New Blank Pokemon Sheet",command=lambda: self.event_generate(newBlankMon(viewer)))
+        self.m_file.add_command(label="New Generated Pokemon Sheet",command=lambda: self.event_generate(monGeneratorWindow(viewer,self)))
+        self.m_file.add_command(label="Open...",command=lambda: self.event_generate(openFile(currentMon,viewer)))
+        self.m_file.add_separator()
+        self.m_file.add_command(label="Save")
+        self.m_file.add_command(label="Save As...")
+        self.m_file.add_separator()
+        self.m_file.add_command(label="Reload Dex",command=reloadDexData)
+        self.m_file.add_separator()
+        self.m_file.add_command(label="Exit",command=self.destroy) #you should. now.
+        self['menu'] = self.m
+    
+    def updatemenu(self,holder):
+        self.m_file.entryconfigure("Save",command=lambda: self.event_generate(saveFile(holder,self)))
+        self.m_file.entryconfigure("Save As...",command=lambda:self.event_generate(saveFileAs(holder,self)))
+        pass
 
 width = "640"
 height = "480"
@@ -99,7 +104,7 @@ class char:     #class which holds a pokemon's data
 
 
 def parsepokedex(custom):   #this doesnt even like actually parse it does it it just loads it. whatever. later.
-    parser = open(os.path.join(__location__, 'PokedexData.csv'), 'r')
+    parser = open(os.path.join(__location__, 'PokedexData.csv'), 'r',encoding="utf-8")
     pokedex = {}
     linesplit = []
     line = re.split('\n',parser.readline())[0]  #there's a line at the start that we want to clear. this maybe could just be 'parser.readline()'.
@@ -112,7 +117,7 @@ def parsepokedex(custom):   #this doesnt even like actually parse it does it it 
     parser.close
     if(custom):
         try:
-            parser = open(os.path.join(__location__,'CustomPokemon.csv'),'r')
+            parser = open(os.path.join(__location__,'CustomPokemon.csv'),'r',encoding="utf-8")
             while True:
                 line = re.split('\n', parser.readline())[0]
                 if(line == ""):
@@ -125,7 +130,7 @@ def parsepokedex(custom):   #this doesnt even like actually parse it does it it 
     return pokedex
 
 def parseabilitydex(custom):    #load ability data from files
-    parser = open(os.path.join(__location__,'Abilitydex.csv'),'r')
+    parser = open(os.path.join(__location__,'Abilitydex.csv'),'r',encoding="utf-8")
     abilitydex = [[],[]]
     linesplit = []
     i = 0
@@ -144,7 +149,7 @@ def parseabilitydex(custom):    #load ability data from files
     parser.close
     if(custom):
         try:
-            parser = open(os.path.join(__location__,'CustomAbilities.csv'),'r')
+            parser = open(os.path.join(__location__,'CustomAbilities.csv'),'r',encoding="utf-8")
             while True:
                 line = re.split('"\n',parser.readline())[0]
                 if(line == ""):
@@ -158,7 +163,7 @@ def parseabilitydex(custom):    #load ability data from files
     return(abilitydex)
 
 def parseitemdex(custom):   #load item data from files
-    parser = open(os.path.join(__location__,"Itemdex.csv"),'r')
+    parser = open(os.path.join(__location__,"Itemdex.csv"),'r',encoding="utf-8")
     itemdex = []
     linesplit = []
     line = re.split('\n',parser.readline())[0]
@@ -171,7 +176,7 @@ def parseitemdex(custom):   #load item data from files
     parser.close
     if(custom):
         try:
-            parser = open(os.path.join(__location__,"CustomItems.csv"),'r')
+            parser = open(os.path.join(__location__,"CustomItems.csv"),'r',encoding="utf-8")
             while True:
                 line = re.split('\n',parser.readline())[0]
                 if(line == ""):
@@ -184,7 +189,7 @@ def parseitemdex(custom):   #load item data from files
     return itemdex
 
 def parsemovedex(custom):   #load move data from files
-    parser = open(os.path.join(__location__,"Movedex.csv"),'r')
+    parser = open(os.path.join(__location__,"Movedex.csv"),'r',encoding="utf-8")
     movedex = [[],[],[],[],[],[]]
     linesplit = []
     temp = []
@@ -221,7 +226,7 @@ def parsemovedex(custom):   #load move data from files
     parser.close
     if(custom):
         try:
-            parser = open(os.path.join(__location__,"CustomMoves.csv"),'r')
+            parser = open(os.path.join(__location__,"CustomMoves.csv"),'r',encoding="utf-8")
             while True:
                 line = re.split('\n',parser.readline())[0]
                 if(line == ""):
@@ -235,7 +240,7 @@ def parsemovedex(custom):   #load move data from files
     return movedex
 
 def init(): #initialise some important stuff. this maybe doesnt need to be a function? it's ok.
-    parser = open(os.path.join(__location__,"settings.txt"),'r')    #we're gonna read the settings file here.
+    parser = open(os.path.join(__location__,"settings.txt"),'r',encoding="utf-8")    #we're gonna read the settings file here.
     temp = []
     # this is why maybe this shouldnt be a function
     global width
@@ -265,6 +270,70 @@ def init(): #initialise some important stuff. this maybe doesnt need to be a fun
 def saveCheck(loaded):  #this is gonna check if you want to save data before closing a window but it doesnt work rn because saving doesnt work
     if(loaded.name!="EMPTY"):   #if the name is EMPTY that means nothing's loaded or someone's being a little shit.
         print("check if the user wants to save the current mon")
+    return
+
+def saveFile(viewer,root):
+    print("this worked!")
+    try:
+        save = open(viewer.filename,'w',encoding="utf-8")
+    except:
+        saveFileAs(viewer,root)
+        return
+    save.write(viewer.name.get()+"\n")      #start with the name on its own line.
+    save.write(viewer.species.get()+"\n")   #then species.
+    save.write(viewer.type.get()+"\n")      #then type. so far so simple.
+    save.write(viewer.level.get()+"\n")     #level.
+    save.write(viewer.exp.get()+"|"+viewer.expthreshold.get()+"\n")     #the first of many multiobject lines.
+    save.write(viewer.nature.get()+"\n")
+    save.write(viewer.size.get()+"\n")
+    save.write(viewer.weight.get()+"\n")
+    save.write(viewer.hp.get()+"|"+viewer.hpmax.get()+"|"+viewer.hpclass.get()+"\n")    #three in a row.
+    save.write(viewer.baseatk.get()+"|"+viewer.addedatk.get()+"|"+viewer.stageatk.get()+"\n")   #onto the traditional stats.
+    save.write(viewer.basedef.get()+"|"+viewer.addeddef.get()+"|"+viewer.stagedef.get()+"\n")
+    save.write(viewer.basespa.get()+"|"+viewer.addedspa.get()+"|"+viewer.stagespa.get()+"\n")
+    save.write(viewer.basespd.get()+"|"+viewer.addedspd.get()+"|"+viewer.stagespd.get()+"\n")
+    save.write(viewer.basespe.get()+"|"+viewer.addedspe.get()+"|"+viewer.stagespe.get()+"\n")   #same thing for all of them.
+    temp = ""
+    for movement in viewer.movements:   #iterate through the movement array and collect it down to a semicolon//pipe separated line.
+        if(temp != ""): temp += "|" #no initial pipe
+        temp += movement[0].get()+";"+movement[1].get()
+    temp += "\n"    #could do this in the next line but might as well add it here
+    save.write(temp)
+    temp = ""       #gotta clear it to reuse it
+    for ability in viewer.abilities:    #can do the same thing as with movements.
+        if(temp != ""): temp += "|"
+        temp += ability[0].get()+";"+ability[2].get('1.0','end-1c')  #well, mostly the same. this is a text widget so it's not a variable.
+    temp += "\n"
+    save.write(temp)
+    temp = ""
+    for move in viewer.moves:
+        if(temp != ""): temp += "|"
+        #long line incoming
+        temp += move[0].get()+";"+move[1].get()+";"+move[2].get()+";"+move[3].get()+";"+move[4].get()+";"+move[5].get()+";"+move[13].get('1.0','end-1c')
+    temp += "\n"
+    save.write(temp)
+    temp = ""
+    talentshelper = ["Athletics","Force","Acrobatics","Balance","Stealth","Sleight of Hand","Vitality","Concentration","Recovery","Composure","Tech","Observation","History","Nature","Speech","Style","Pokemon Handling","Insight","Intimidate"]
+    for talent in talentshelper:
+        if(temp != ""):temp += "|"
+        if talent.lower() in viewer.talents.get('1.0','end').lower():
+            temp += "1"
+        else:
+            temp += "0"
+    temp += "\n"
+    save.write(temp)
+    save.write(viewer.habitat.get()+"|"+viewer.diet.get()+"\n") #back to the simple stuff.
+    save.write(viewer.egggroups.get()+"\n")
+    save.write(viewer.evolution.get('1.0','end'))
+    save.write(viewer.notes.get('1.0','end-1c'))
+    save.close()
+    messagebox.showinfo(message="File Saved as "+viewer.filename+"!")
+    return
+
+def saveFileAs(viewer,root):
+    print("Save As Dialog attempting to open...")
+    viewer.filename = filedialog.asksaveasfilename()
+    saveFile(viewer,root)
     return
 
 def newBlankMon(viewer):
@@ -344,6 +413,9 @@ def prepGenerate(viewer,species,level,hproll,randnature,stats,abilities,invalid,
     except:
         invalid.set("Could not find the species "+newspecies+"!")
         return
+    if(abilities[0].get()==0 and abilities[1].get()==0 and abilities[2].get()==0):
+        invalid.set("Must choose at least one ability!")
+        return
     viewer.append(tkinterholder())
     generateMon(viewer[-1],newspecies,newlevel,hproll.get(),randnature.get(),stats.get(),[abilities[0].get(),abilities[1].get(),abilities[2].get(),abilities[3].get()])
     return
@@ -386,7 +458,7 @@ def generateMon(viewer,species,level,hproll,randnature,stats,abilities):
                 exec("viewer.mon."+statsarray[i]+"[0]=Pokedex[species][7+i]")    #i kinda hate that im reusing this terrible workaround but it should work
     viewer.mon.type=Pokedex[species][3]
     if(Pokedex[species][4]!=""):
-        viewer.mon.type+=", "+Pokedex[species][4]
+        viewer.mon.type+=" / "+Pokedex[species][4]
     if(abilities[3]):
         viewer.mon.abilities=[]
         for i in range(3):
@@ -417,7 +489,7 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
     subsplit = []
     saveCheck(currentMon)   #this is maybe not important anymore? check if the user wants to save before opening a new file.
     filename = filedialog.askopenfilename()     #let the user pick the file to open
-    parser = open(filename,'r')
+    parser = open(filename,'r',encoding="utf-8")
     try:
         #the first ones are pretty simple, since they're simple strings on their own lines
         temp.name = re.split('\n',parser.readline())[0] 
@@ -484,6 +556,7 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
         messagebox.showerror(message="Something went wrong processing "+filename+".")   #happens if you load a file that's, yknow, not an actual file. this is actually probably still too permissive.
     viewer.append(tkinterholder())
     viewer[-1].mon=temp
+    viewer[-1].filename=filename
     parser.close()  #we don't need this still open
     window = PokemonWindow()    #create the new menu so that you can have multiple characters open at once [say, i dunno, your whole team]
     window.setuppokemonwindow() #sets up the 'File' menu. i might have it do more later.
@@ -608,6 +681,7 @@ def updateStats(viewer,*args): #update the stats window when something changes//
     return
 
 def loadMonView(viewer, root, mon: char): #initialise the pokemon character sheet window. viewer is just a holder to keep these accessible in other functions. needs to be altered for multiwindow.
+    root.updatemenu(viewer)
     root.geometry("1080x720")
     root.title(mon.name+"'s Character Sheet") #this won't update dynamically but that's fine
     root.grid_columnconfigure(0,weight=1)
