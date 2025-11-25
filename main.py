@@ -680,15 +680,31 @@ def updateStats(viewer,*args): #update the stats window when something changes//
 
     return
 
+def scrollfix(viewer,*args):
+    viewer.canvas.configure(scrollregion=viewer.canvas.bbox("all"))
+
 def loadMonView(viewer, root, mon: char): #initialise the pokemon character sheet window. viewer is just a holder to keep these accessible in other functions. needs to be altered for multiwindow.
     root.updatemenu(viewer)
     root.geometry("1080x720")
     root.title(mon.name+"'s Character Sheet") #this won't update dynamically but that's fine
+    viewer.outerframe = Frame(root)
+    viewer.outerframe.grid(sticky='nesw')
+    viewer.canvas = Canvas(viewer.outerframe)
+    viewer.mainspace = Frame(viewer.canvas)
+    viewer.mainspace.grid(sticky='nesw')
     root.grid_columnconfigure(0,weight=1)
+    root.grid_rowconfigure(0,weight=1)
+    viewer.scrollbar = ttk.Scrollbar(viewer.outerframe,orient=VERTICAL,command=viewer.canvas.yview)
+    viewer.scrollbar.pack(side="right",fill="y")
+    viewer.canvas.pack(side="left",fill="both",expand=TRUE)
+    viewer.canvas.create_window((0,0),window=viewer.mainspace,anchor='nw')
+    viewer.mainspace.grid_columnconfigure(0,weight=1)
+    viewer.canvas.configure(yscrollcommand = viewer.scrollbar.set,yscrollincrement = 25)
+    viewer.mainspace.bind("<Configure>",partial(scrollfix,viewer))
     global defaultlabel
     defaultlabel.destroy()
     viewer.root = root
-    viewer.overviewholder = ttk.Frame(root,height=200)
+    viewer.overviewholder = ttk.Frame(viewer.mainspace,height=200)
     viewer.overviewholder.grid(column=0,row=0,sticky='ew')
     # Now we start with actually loading the data into a viewable form. conveniently if these already exist it should just overwrite them with the new values.
     # everything loads from the mon filtered in here so that if i want i can pull this to another window if i ever do multi-window functionality
@@ -781,7 +797,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.hpclassentry.grid(row=2,column=4)
     viewer.hpclassdefinitionlabel.grid(row=2,column=5)
     # makes a frame for the regular stats so they don't have to deal with the above grid
-    viewer.statholder = ttk.Frame(root,height=200)
+    viewer.statholder = ttk.Frame(viewer.mainspace,height=200)
     viewer.statholder.grid(row=1,column=0,sticky='ew')
     # set up the labels for the columns
     viewer.basestatlabel = Label(viewer.statholder,text="Base:")
@@ -937,7 +953,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
 
     #okay. now that that's out of the way...
     #this box is just to make things not weird.
-    viewer.movementholder = ttk.Frame(root,height=200)
+    viewer.movementholder = ttk.Frame(viewer.mainspace,height=200)
     viewer.movementholder.grid(column=0,row=2,sticky='ew')
     viewer.movements = []
     for i in range(len(mon.movespeed)):  #dynamic length for this bc some mons will have more unique movespeeds than others
@@ -959,7 +975,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     # call me insane cant i do literally the same thing with abilities as with movementspeeds bc they're both
     # mm no actually i want to format them slightly differently
     # close, though. very close.
-    viewer.abilityholder = ttk.Frame(root,height=200)
+    viewer.abilityholder = ttk.Frame(viewer.mainspace,height=200)
     viewer.abilityholder.grid(column=0,row=3,sticky='ew')
     viewer.abilities = []
     for i in range(len(mon.abilities)):
@@ -978,7 +994,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.removeability = Button(viewer.abilityholder,text="-",command=partial(removelastability,viewer))
     viewer.removeability.grid(column=1,row=2*len(viewer.abilities),sticky='w')
     # ok moves are basically the same as abilities except there's more boxes gwuhh
-    viewer.moveholder = ttk.Frame(root)
+    viewer.moveholder = ttk.Frame(viewer.mainspace)
     viewer.moveholder.grid(column=0,row=4,sticky='ew')
     viewer.moves = []
     for i in range(len(mon.moves)):
@@ -1010,7 +1026,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.removemove = Button(viewer.moveholder,text="-",command=partial(removelastmove,viewer))
     viewer.removemove.grid(row=3*len(viewer.moves),column=1,sticky='w')
     
-    viewer.talentsholder = ttk.Frame(root)
+    viewer.talentsholder = ttk.Frame(viewer.mainspace)
     viewer.talentsholder.grid(column=0,row=5,sticky='ew')
     talentshelper = ["Athletics","Force","Acrobatics","Balance","Stealth","Sleight of Hand","Vitality","Concentration","Recovery","Composure","Tech","Observation","History","Nature","Speech","Style","Pokemon Handling","Insight","Intimidate"]
     viewer.talents = Text(viewer.talentsholder,width=100,height=2,wrap="word")
@@ -1024,7 +1040,7 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
             viewer.talents.insert('end',talentshelper[i])
     viewer.talents.grid(column=0,row=0,sticky='ew')
 
-    viewer.environmentholder = ttk.Frame(root)
+    viewer.environmentholder = ttk.Frame(viewer.mainspace)
     viewer.environmentholder.grid(column=0,row=6,sticky='ew')
     viewer.habitat = StringVar()
     viewer.habitat.set(mon.habitat)
@@ -1042,11 +1058,11 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.egggroupsentry = Entry(viewer.environmentholder,textvariable=viewer.egggroups,width=30)
     viewer.egggroupsentry.grid(column=2,row=0)
 
-    viewer.evolution = Text(root,height=2,width=100,wrap="word")
+    viewer.evolution = Text(viewer.mainspace,height=2,width=100,wrap="word")
     viewer.evolution.grid(column=0,row=7,sticky='w')
     viewer.evolution.insert('1.0',mon.evolution)
 
-    viewer.notes = Text(root,height=3,width=100,wrap="word")
+    viewer.notes = Text(viewer.mainspace,height=3,width=100,wrap="word")
     viewer.notes.grid(column=0,row=8,sticky='w')
     viewer.notes.insert('1.0',mon.notes)
 
