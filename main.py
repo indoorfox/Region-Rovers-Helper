@@ -102,19 +102,30 @@ class char:     #class which holds a pokemon's data
         return
 
 
+def parsepokedex(custom): #new pokedex parser!
+    with open(os.path.join(__location__,'Pokedex.txt'),'r',encoding="utf-8") as file:
+        parser = re.split('\n\n',file.read())  #reads the entire dex into a single array of pokemon. this is probably bad practice, but we're going to delete this later.
+    pokedex = {} #being not stupid and using a library from the beginning, here.
 
-def parsepokedex(custom):   #this doesnt even like actually parse it does it it just loads it. whatever. later.
-    parser = open(os.path.join(__location__, 'PokedexData.csv'), 'r',encoding="utf-8")
-    pokedex = {}
-    linesplit = []
-    line = re.split('\n',parser.readline())[0]  #there's a line at the start that we want to clear. this maybe could just be 'parser.readline()'.
-    while True:     #go through the whole file.
-        line = re.split('\n', parser.readline())[0]
-        if(line == ""):
-            break   #thats the end of the file.
-        linesplit = re.split(",",line)
-        pokedex[linesplit[3]] = linesplit[:3]+linesplit[4:]   #oh fuck i shoulda been using libraries for the dexes this whole time i might genuinely be stupid
-    parser.close
+    for pokemon in parser:
+        separated = re.split('\n|: ',pokemon)
+        if(separated[-2]=="Special Note"):
+            evotemp = ""
+            for evo in separated[33:-2]:
+                evotemp+= evo + "|"
+            monarray = separated[:33] + [evotemp[:-1]] + separated[-2:]
+        else:
+            evotemp = ""
+            for evo in separated[33:]:
+                evotemp+= evo + "|"
+            monarray = separated[:33] + [evotemp[:-1]] + ["Special Note",""]
+        mondictionary = {}
+        for i in range(1,18):
+            mondictionary[monarray[2*i]] = monarray[2*i+1]
+        #print(monarray[1])
+        #print(mondictionary)
+        mondictionary['Evolution Bonus'] = 0
+        pokedex[monarray[1]]=mondictionary
     if(custom):
         try:
             parser = open(os.path.join(__location__,'CustomPokemon.csv'),'r',encoding="utf-8")
@@ -128,6 +139,116 @@ def parsepokedex(custom):   #this doesnt even like actually parse it does it it 
         except:
             print("No custom pokedex data found!")  #sometimes theyll only have some custom data so this is here for that
     return pokedex
+
+def parseevolutions(custom): #turns out these don't parse properly by default
+    global Pokedex
+    newdex = Pokedex.copy()
+    for pokemon in Pokedex:
+        #print(pokemon)
+        #print(Pokedex[pokemon])
+        #print(Pokedex[pokemon]['Evolution'])
+        if(Pokedex[pokemon]['Evolution']!="Does Not Evolve"):
+            #print(pokemon)
+            reseparated = re.split(r'\|',newdex[pokemon]['Evolution'])
+            for evolution in reseparated[1:]:
+                breaker = re.split(r' \(|\)',evolution)[0:2]
+                #print(Pokedex[pokemon])
+                #print("Successfully broke "+pokemon)
+                #print("breaker[0]="+breaker[0])
+                #print("breaker[1]="+breaker[1])
+                try:
+                    print("already an existing "+newdex[breaker[0]]['Type']+" type pokemon named "+breaker[0]+"!")
+                except:
+                    if(breaker[0][0:5]=="Mega "):
+                        print("skipping "+breaker[0]+"!")
+                    else:
+                        newmon = newdex[pokemon].copy()
+                        changes = re.split(r', ',breaker[1])
+                        for change in changes:
+                            if('Stat Points' in change):
+                                newmon['Evolution Bonus'] = newmon['Evolution Bonus'] + int(change[1])
+                                #print(newmon['Evolution Bonus'])
+                            elif('Talent' in change):
+                                newmon['Talents'] += ", "+change[1:-7]
+                            elif('Adept' in change):
+                                talent = change[1:-6]
+                                newmon['Talents'] = newmon['Talents'][0:newmon['Talents'].find(talent)]+"(Adept) "+newmon['Talents'][newmon['Talents'].find(talent):]
+                            elif('ft.' in change):
+                                movement = re.split(r'ft\. ',change)
+                                prevmovements = re.split(r', ',newmon['Movement'])
+                                exists = False
+                                for i in range(len(prevmovements)):
+                                    speed = re.split(r'ft\. ',prevmovements[i])
+                                    if speed[1] == movement[1]:
+                                        exists = True
+                                        speed[0]=str(int(speed[0])+int(movement[0][1:]))
+                                        prevmovements[i]=speed[0]+"ft. "+speed[1]
+                                if exists:
+                                    newmovements = ""
+                                    for prevmove in prevmovements:
+                                        newmovements += prevmove + ", "
+                                    newmon['Movement'] = newmovements[:-2]
+                                else:
+                                    newmon['Movement'] = newmon['Movement'] + ", " + change[1:]
+                                        
+                            elif('Size' in change):
+                                newmon['Size'] = re.split(r' -> ',change)[1]
+                            elif('Weight' in change):
+                                newmon['Weight'] = re.split(r' -> ',change)[1]
+                            elif('HP Class' in change):
+                                newmon['HP Class'] = re.split(r' -> ',change)[1]
+                            elif('Type' in change):
+                                newmon['Type'] = re.split(r' -> ',change)[1]
+                            elif(' -> ' in change):
+                                ability = re.split(r' -> ',change)
+                                prevabilities = re.split(r', ',newmon['Abilities'])
+                                #print("old ability - "+ability[0]+", new ability - "+ability[1])
+                                print(newmon['Abilities'])
+                                #print(prevabilities)
+                                for i in range(len(prevabilities)):
+                                    if prevabilities[i] == ability[0]:
+                                        prevabilities[i] = ability[1]
+                                        print("change!")
+                                #print(prevabilities)
+                                newabilities = ""
+                                for prevab in prevabilities:
+                                    newabilities += prevab + ", "
+                                print(newabilities)
+                                newmon['Abilities'] = newabilities[:-2]
+                            elif('Ability Becomes' in change):
+                                newmon['Abilities'] = change[16:]
+                        newdex[breaker[0]] = newmon
+                            
+
+    return newdex
+
+    
+
+# def parsepokedex(custom):   #this doesnt even like actually parse it does it it just loads it. whatever. later.
+#     parser = open(os.path.join(__location__, 'PokedexData.csv'), 'r',encoding="utf-8")
+#     pokedex = {}
+#     linesplit = []
+#     line = re.split('\n',parser.readline())[0]  #there's a line at the start that we want to clear. this maybe could just be 'parser.readline()'.
+#     while True:     #go through the whole file.
+#         line = re.split('\n', parser.readline())[0]
+#         if(line == ""):
+#             break   #thats the end of the file.
+#         linesplit = re.split(",",line)
+#         pokedex[linesplit[3]] = linesplit[:3]+linesplit[4:]   #oh fuck i shoulda been using libraries for the dexes this whole time i might genuinely be stupid
+#     parser.close
+#     if(custom):
+#         try:
+#             parser = open(os.path.join(__location__,'CustomPokemon.csv'),'r',encoding="utf-8")
+#             while True:
+#                 line = re.split('\n', parser.readline())[0]
+#                 if(line == ""):
+#                     break
+#                 linesplit = re.split(",",line)
+#                 pokedex[linesplit[3]]=linesplit[:3]+linesplit[4:]
+#             parser.close
+#         except:
+#             print("No custom pokedex data found!")  #sometimes theyll only have some custom data so this is here for that
+#     return pokedex
 
 def parseabilitydex(custom):    #load ability data from files
     parser = open(os.path.join(__location__,'Abilitydex.csv'),'r',encoding="utf-8")
@@ -214,12 +335,23 @@ def parsemovedex(custom):   #load move data from files
         temp = re.split(r"\. ",linesplit[2])    #break the third section [range and description]
         if(len(temp)==2):   #if it broke cleanly....
             move.append(temp[0][1:])    #leading space
-            move.append(temp[1][:-1])   #trailing quote
+            if(len(linesplit)==4):
+                mergetext = ""
+                mergetext+=temp[1]  #it doesn't have a trailing anything.
+                mergetext+=" "+linesplit[3][1:-1]   #leading space and trailing quote
+                move.append(mergetext)
+            else:    
+                move.append(temp[1][:-1])   #trailing quote
         else:               #if it didn't break cleanly we gotta stitch it back
             move.append(temp[0][1:])
             for sentence in temp[1:]:   #this is a little janky but it works so w/e
                 desc+=sentence+". "     #stitch all the sentences back together
-            move.append(desc[:-3])  #this clears out the trailing quote and the '. ' we added
+            if(len(linesplit)==4):
+                desc = desc[:-2]
+                desc+=" "+linesplit[3][1:-1]
+                move.append(desc)
+            else:
+                move.append(desc[:-3])  #this clears out the trailing quote and the '. ' we added
         #print("adding move "+move[0]+ " with "+move[1]+", category "+move[2]+", type "+move[3]+", range "+move[4]+" and description "+move[5]+" to movedex.")
         for i in range(6):
             movedex[i].append(move[i])
@@ -262,13 +394,14 @@ def init(): #initialise some important stuff. this maybe doesnt need to be a fun
         if(linesplit[0]=="Custom Data"):
             customdata = bool(linesplit[1])
     Pokedex = parsepokedex(customdata)  #we have functions for these so just run those
+    Pokedex = parseevolutions(customdata)
     Abilitydex = parseabilitydex(customdata)
     Itemdex = parseitemdex(customdata)
     Movedex = parsemovedex(customdata)
     return
 
 def saveCheck(loaded):  #this is gonna check if you want to save data before closing a window but it doesnt work rn because saving doesnt work
-    if(loaded.name!="EMPTY"):   #if the name is EMPTY that means nothing's loaded or someone's being a little shit.
+    if(loaded.name!="EMPTY"):   #if the name is EMPTY that means nothing's loaded or someone's being a little shit. # ^ this girls a liar
         print("check if the user wants to save the current mon")
     return
 
@@ -409,7 +542,7 @@ def prepGenerate(viewer,species,level,hproll,randnature,stats,abilities,invalid,
             except:
                 invalid.set("Could not resolve level!")
                 return
-        print("getting pokemon with id "+Pokedex[newspecies][2]+" at level "+str(newlevel))
+        print("generating the "+Pokedex[newspecies]['Type']+" type pokemon "+newspecies+" at level "+str(newlevel))
     except:
         invalid.set("Could not find the species "+newspecies+"!")
         return
@@ -426,8 +559,8 @@ def generateMon(viewer,species,level,hproll,randnature,stats,abilities):
     viewer.mon = char(species=species,level=level)
     hpclass = ["Weak","Average","Above Average","Bulky","Tank"]
     if(hproll):
-        hp = int(Pokedex[species][6])
-        viewer.mon.hp=[0,0,Pokedex[species][5]]
+        hp = int(Pokedex[species]['HP'])
+        viewer.mon.hp=[0,0,Pokedex[species]['HP Class']]
         if(level>5):
             dx = 2*hpclass.index(viewer.mon.hp[2])+4
             for i in range(level-5):
@@ -435,49 +568,69 @@ def generateMon(viewer,species,level,hproll,randnature,stats,abilities):
         viewer.mon.hp[0] = hp
         viewer.mon.hp[1] = hp
     else:
-        viewer.mon.hp=[int(Pokedex[species][6]),int(Pokedex[species][6]),Pokedex[species][5]]
+        viewer.mon.hp=[int(Pokedex[species]['HP']),int(Pokedex[species]['HP']),Pokedex[species]['HP Class']]
     if(randnature):
         viewer.mon.nature=random.choice(["Hardy","Lonely","Adamant","Naughty","Brave","Bold","Docile","Impish","Lax","Relaxed","Modest","Mild","Bashful","Rash","Quiet","Calm","Gentle","Careful","Quirky","Sassy","Timid","Hasty","Jolly","Naive","Serious"])
     statsarray = ["ATK","DEF","SPA","SPD","SPE"]
     if(stats==1):
-        if(level>5):
-            gained = math.floor((level-5)*1.5)
+        if(level>5 or Pokedex[species]['Evolution Bonus']>0):
+            gained = math.floor((level-5)*1.5) + Pokedex[species]['Evolution Bonus']
+            print(gained)
             weights = [1,0,0,0,0]
+            weights[0] = int(Pokedex[species]['Attack'])
+            weights[1] = int(Pokedex[species]['Defense'])
+            weights[2] = int(Pokedex[species]['Special Attack'])
+            weights[3] = int(Pokedex[species]['Special Defense'])
+            weights[4] = int(Pokedex[species]['Speed'])
             for i in range(5):
-                weights[i]=int(Pokedex[species][7+i])
                 exec("viewer.mon."+statsarray[i]+"[1]=0")
                 exec("viewer.mon."+statsarray[i]+"[0]=weights[i]")   #this is a TERRIBLE idea but it might actually work. I should probably just reformat the way I save stats tho.
             #print(weights)
             for i in range(gained):
                 exec("viewer.mon."+random.choices(statsarray,weights,k=1)[0]+"[1]+=1")  #still a terrible idea
         else:
-            for i in range(5):
-                exec("viewer.mon."+statsarray[i]+"[0]=Pokedex[species][7+i]")
+            viewer.mon.ATK[0] = int(Pokedex[species]['Attack'])
+            viewer.mon.DEF[0] = int(Pokedex[species]['Defense'])
+            viewer.mon.SPA[0] = int(Pokedex[species]['Special Attack'])
+            viewer.mon.SPD[0] = int(Pokedex[species]['Special Defense'])
+            viewer.mon.SPE[0] = int(Pokedex[species]['Speed'])
     else:
         for i in range(5):
-                exec("viewer.mon."+statsarray[i]+"[0]=Pokedex[species][7+i]")    #i kinda hate that im reusing this terrible workaround but it should work
-    viewer.mon.type=Pokedex[species][3]
-    if(Pokedex[species][4]!=""):
-        viewer.mon.type+=" / "+Pokedex[species][4]
+                viewer.mon.ATK[0] = int(Pokedex[species]['Attack'])
+                viewer.mon.DEF[0] = int(Pokedex[species]['Defense'])
+                viewer.mon.SPA[0] = int(Pokedex[species]['Special Attack'])
+                viewer.mon.SPD[0] = int(Pokedex[species]['Special Defense'])
+                viewer.mon.SPE[0] = int(Pokedex[species]['Speed'])
+    viewer.mon.type=Pokedex[species]['Type']
+    abilitylist = re.split(r', ',Pokedex[species]['Abilities'])
     if(abilities[3]):
-        viewer.mon.abilities=[]
-        for i in range(3):
-            if(abilities[i] and (Pokedex[species][20+i]!="")):
-                viewer.mon.abilities.append([Pokedex[species][20+i],Abilitydex[1][Abilitydex[0].index(Pokedex[species][20+i])]])
+        for ability in abilitylist:
+            viewer.mon.abilities.append([ability,Abilitydex[1][Abilitydex[0].index(ability)]])
         if(len(viewer.mon.abilities)==0):
             viewer.mon.abilities.append(["",""])
     else:
-        ability = random.choices([Pokedex[species][20],Pokedex[species][21],Pokedex[species][22]],abilities[0:3],k=1)[0]
+        if(len(abilitylist)==1):
+            abilitylist.append(abilitylist[0])
+            abilitylist.append(abilitylist[0])
+        elif(len(abilitylist)==2):
+            abilitylist = [abilitylist[0],abilitylist[0],abilitylist[1]]
+        ability = random.choices(abilitylist,abilities[0:3],k=1)[0]
         try:
             viewer.mon.abilities= [[ability,Abilitydex[1][Abilitydex[0].index(ability)]]]
         except:
             viewer.mon.abilities=[["",""]]
-    viewer.mon.size=Pokedex[species][15]
-    viewer.mon.weight=Pokedex[species][17]
-    
-    viewer.mon.egggroups=[Pokedex[species][18]]
-    if(Pokedex[species][19]!=""):
-        viewer.mon.egggroups.append(Pokedex[species][19])
+    viewer.mon.size=Pokedex[species]['Size']
+    viewer.mon.weight=Pokedex[species]['Weight']
+    viewer.mon.movespeed=[]
+    viewer.mon.egggroups=Pokedex[species]['Egg Group']
+    movementspeeds = re.split(r', ',Pokedex[species]['Movement'])
+    for movementspeed in movementspeeds:
+        viewer.mon.movespeed.append(re.split(r'. ',movementspeed))
+    viewer.mon.talents=Pokedex[species]['Talents']
+    viewer.mon.diet = re.split(r' / ',Pokedex[species]['Diet & Habitat'])[0]
+    viewer.mon.habitat = re.split(r' / ',Pokedex[species]['Diet & Habitat'])[1]
+    viewer.mon.evolution = Pokedex[species]['Evolution']
+    viewer.mon.notes = Pokedex[species]['Special Note']
     window = PokemonWindow()
     window.setuppokemonwindow()
     loadMonView(viewer,window,viewer.mon)
@@ -536,12 +689,8 @@ def openFile(currentMon,viewer):    #this does the actual loading of a file into
         for move in linesplit:
             subsplit.append(re.split(';',move))
         temp.moves = subsplit
-        #talents is an int array bc im gonna parse it different later
-        linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
-        subsplit = []
-        for talent in linesplit:
-            subsplit.append(int(talent))
-        temp.talents = subsplit
+        #changing talents back because of the new dex including them. it's gonna be easier to work with them as text.
+        temp.talents = re.split('\n',parser.readline())[0]
         #habitat and diet are stored together in the file but not in the object? why did evie do this is she stupid
         linesplit = re.split(r'\|',re.split('\n',parser.readline())[0])
         temp.habitat = linesplit[0]
@@ -970,8 +1119,6 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     viewer.addmovementspeed.grid(row=0,column=2*len(viewer.movements))
     viewer.removemovementspeed = Button(viewer.movementholder,text="-",command=partial(removemovespeed,viewer))
     viewer.removemovementspeed.grid(row=0,column=2*len(viewer.movements)+1)
-
-    #TODO: add: talents, habitat//diet, egg group, evolution(s)
     # call me insane cant i do literally the same thing with abilities as with movementspeeds bc they're both
     # mm no actually i want to format them slightly differently
     # close, though. very close.
@@ -1028,33 +1175,22 @@ def loadMonView(viewer, root, mon: char): #initialise the pokemon character shee
     
     viewer.talentsholder = ttk.Frame(viewer.mainspace)
     viewer.talentsholder.grid(column=0,row=5,sticky='ew')
-    talentshelper = ["Athletics","Force","Acrobatics","Balance","Stealth","Sleight of Hand","Vitality","Concentration","Recovery","Composure","Tech","Observation","History","Nature","Speech","Style","Pokemon Handling","Insight","Intimidate"]
     viewer.talents = Text(viewer.talentsholder,width=100,height=2,wrap="word")
-    talentflag = False
-    for i in range(len(talentshelper)):
-        if mon.talents[i]==1:
-            if(talentflag):
-                viewer.talents.insert('end',", ")
-            else:
-                talentflag = True
-            viewer.talents.insert('end',talentshelper[i])
+    viewer.talents.insert('1.0',mon.talents)
     viewer.talents.grid(column=0,row=0,sticky='ew')
 
     viewer.environmentholder = ttk.Frame(viewer.mainspace)
     viewer.environmentholder.grid(column=0,row=6,sticky='ew')
     viewer.habitat = StringVar()
     viewer.habitat.set(mon.habitat)
-    viewer.habitatentry = Entry(viewer.environmentholder,textvariable=viewer.habitat,width=15)
+    viewer.habitatentry = Entry(viewer.environmentholder,textvariable=viewer.habitat,width=25)
     viewer.habitatentry.grid(column=0,row=0)
     viewer.diet = StringVar()
     viewer.diet.set(mon.diet)
     viewer.dietentry = Entry(viewer.environmentholder,textvariable=viewer.diet,width=15)
     viewer.dietentry.grid(column=1,row=0)
     viewer.egggroups = StringVar()
-    if(len(mon.egggroups)==2):
-        viewer.egggroups.set(mon.egggroups[0]+","+mon.egggroups[1])
-    else:
-        viewer.egggroups.set(mon.egggroups[0])
+    viewer.egggroups.set(mon.egggroups)
     viewer.egggroupsentry = Entry(viewer.environmentholder,textvariable=viewer.egggroups,width=30)
     viewer.egggroupsentry.grid(column=2,row=0)
 
